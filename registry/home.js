@@ -18,6 +18,7 @@ let closeBTN = document.querySelector(".close-btn");
 let closeBTN2 = document.querySelector(".close-btn2");
 let closeBTN3 = document.querySelector(".close-btn3");
 let closeBTN4 = document.querySelector(".close-btn4");
+let closeBTN5 = document.querySelector(".close-btn5");
 let settingsTable = document.querySelector(".settings-table");
 let setOn = document.querySelector(".set-table-on");
 let markPanel = document.querySelector(".mark-panel");
@@ -28,6 +29,22 @@ let setT = false;
 let addStd = false;
 let rmStdBtn = document.getElementById("remove-std-btn");
 let rmStdBool = false;
+let reportBool = false;
+let reportTable = document.getElementById("report-add-table");
+let reportBtn = document.getElementById("add-report");
+
+function showReportAdd(){
+	if (!reportBool){
+		reportTable.style.display = "block";
+		reportBool = true;
+	}else{
+		reportTable.style.display = "none";
+		reportBool = false;
+	}
+}
+
+reportBtn.onclick = showReportAdd;
+closeBTN5.onclick = showReportAdd;
 
 function rmPlaceStd(){
 	if (!rmStdBool){

@@ -26,10 +26,11 @@
 			</div>
 			<div class="menu-slide">
 				<div class = "links-part">
-					<div class = "set-table-on"><a href="#">Add Homework</a></div>
-					<div class = "report-btn"><a href="#">Reports|Achievemets</a></div>
-					<div id = "add-std-btn" class="add-student-btn"><a href="#">Add Student</a></div>
-					<div id = "remove-std-btn" class="add-student-btn"><a href="#">Remove Student</a></div>
+					<div class = "set-table-on">Add Homework</div>
+					<div class = "add-student-btn"><a href="article.html">Reports|Achievemets</a></div>
+					<div id = "add-std-btn" class="add-student-btn">Add Student</div>
+					<div id = "remove-std-btn" class="add-student-btn">Remove Student</div>
+					<div id = "add-report" class="add-student-btn">Add Report</div>
 					<div class = "options-form">
 						<select>
 							<option selected hidden>Class</option>
@@ -96,8 +97,8 @@
 						<option value="12">12</option>
 					</select>
 				</div>
-				<div class = "add-btn-wrap">
-					<button id="add-home-btn">Add</button>
+				<div class="btns-div-add-std">
+					<button class = "submit-btn-add-std">Submit</button>
 				</div>
 			</div>
 			<div class = "mark-panel">
@@ -152,10 +153,11 @@
 						<label for = "not">Not present</label>
 					</div>
 				</div>
-				<div class = "submit-mark-wrap">
-					<button id = "submit-mark">Submit</button>
+				<div class="btns-div-add-std">
+					<button class = "submit-btn-add-std">Submit</button>
 				</div>
 			</div>
+
 			<div id = "add-student" class = "mark-panel">
 				<div class = "close-btn3">
 					<i class="fa-regular fa-circle-xmark"></i>
@@ -241,6 +243,28 @@
 					<div class="btns-div-add-std">
 						<button class = "submit-btn-add-std">Submit</button>
 					</div>
+				</div>
+			</div>
+			<div id = "report-add-table" class = "mark-panel">
+				<div class = "close-btn5">
+					<i class="fa-regular fa-circle-xmark"></i>
+				</div>
+				<h3 class = "h3-report">Add Report</h3>
+				<div class = "inputs-div-report">
+					<div>
+						<label for="title-of-post"><b>Title for report</b></label>
+						<input id = "title-of-post" class = "input-box-rep" type="text" name="">
+					</div>
+					<div>
+						<label for="text-desc-rep"><b>Description for report</b></label>
+						<textarea id = "text-desc-rep" class = "text-description-report input-box-rep"></textarea>
+					</div>
+					<div>
+						<input type="file" name="">
+					</div>
+				</div>
+				<div class = "btns-div-add-std">
+					<button class = "submit-btn-add-std">Submit</button>
 				</div>
 			</div>
 			<div class = "main-div-register">

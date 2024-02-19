@@ -54,18 +54,10 @@ main{
 	justify-content: space-around;
 }
 
-.close-btn{
-	font-size: 30px;
-	font-weight: bold;
-	position: absolute;
-	right: 0%;
-	margin: 5px;
-	cursor: pointer;
-}
 
 .options-form{
 	position: absolute;
-	top:180px;
+	top:220px;
 	display: flex;
 	flex-direction: row;
 	gap:10px;
@@ -75,18 +67,20 @@ main{
 .add-student-btn{
 	margin-left: 20px;
 	margin-top: 20px;
+	color:white; 
+	font-weight: bold;
+	font-size: 18px;
+	cursor: pointer;
 }
 
 .add-student-btn a{
 	text-decoration: none;
-	color:white; 
-	font-weight: bold;
-	font-size: 18px;
+	color:white;
 }
 
 .options-form select{
 	font-weight: bold;
-	font-size: 20px;
+	font-size: 18px;
 	border-radius: 5px;
 	outline: 0;
 	cursor: pointer;
@@ -123,12 +117,9 @@ main{
 	font-weight: bold;
 	margin-top: 20px;
 	margin-left: 20px;
+	cursor: pointer;
 }
 
-.set-table-on a{
-	text-decoration: none;
-	color: white;
-}
 
 .home-inputs label{
 	font-weight: bold;
@@ -151,36 +142,6 @@ main{
 	font-family: "Source Code Pro", monospace;
 	font-weight: bold;
 	border-radius: 3px;
-}
-
-.add-btn-wrap{
-	width: 100%;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
-}
-
-#add-home-btn{
-	position: absolute;
-	bottom: 20px;
-	margin-left: auto;
-	margin-right: auto;
-	font-size: 20px;
-	font-weight: bold;
-	cursor: pointer;
-	background-color: #4287f5;
-	color: white;
-	border: none;
-	outline: 0;
-	border-radius: 5px;
-	padding: 5px;
-	padding-left: 20px;
-	padding-right: 20px;
-}
-
-.report-btn{
-	margin-left: 20px;
-	margin-top: 20px;
 }
 
 .report-btn a{
@@ -270,34 +231,11 @@ main{
 	flex-wrap: wrap;
 	justify-content: space-around;
 	width: 100%;
+	position: absolute;
+	bottom: 10px;
 }
 
 .submit-btn-add-std{
-	position: absolute;
-	bottom: 20px;
-	margin-left: auto;
-	margin-right: auto;
-	font-size: 20px;
-	font-weight: bold;
-	cursor: pointer;
-	background-color: #4287f5;
-	color: white;
-	border: none;
-	outline: 0;
-	border-radius: 5px;
-	padding: 5px;
-	padding-left: 20px;
-	padding-right: 20px;
-}
-
-.submit-mark-wrap{
-	width: 100%;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
-}
-
-#submit-mark{
 	position: absolute;
 	bottom: 20px;
 	margin-left: auto;
@@ -366,7 +304,7 @@ main{
 	margin-top: 5px;
 }
 
-.close-btn2{
+.close-btn, .close-btn2, .close-btn3, .close-btn4, .close-btn5{
 	position: absolute;
 	right: 0px;
 	margin: 5px;
@@ -375,23 +313,36 @@ main{
 	cursor: pointer;
 }
 
-.close-btn3{
-	position: absolute;
-	right: 0px;
-	margin: 5px;
-	font-size: 30px;
-	font-weight: bold;
-	cursor: pointer;
+
+.inputs-div-report{
+	display: flex;
+	flex-direction: column;
+	gap:20px;
+	margin-left: 10px;
 }
 
-.close-btn4{
-	position: absolute;
-	right: 0px;
-	margin: 5px;
-	font-size: 30px;
-	font-weight: bold;
-	cursor: pointer;
+.input-box-rep{
+	outline: 0px;
+	font-size: 18px;
+	font-family: "Source Code Pro", monospace;
 }
+
+.h3-report{
+	margin-left: 10px;
+}
+
+.inputs-div-report div{
+	display: flex;
+	flex-direction: column;
+	gap:10px;
+	width: 270px;
+}
+
+.text-description-report{
+	height: 250px;
+	resize: none;
+}
+
 
 .main-div-register{
 	width: 1232px;
