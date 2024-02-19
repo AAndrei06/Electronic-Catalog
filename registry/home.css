@@ -1,0 +1,527 @@
+body{
+	padding: 0px;
+	margin: 0px;
+	font-family: "Source Code Pro", monospace;
+}
+
+.banner{
+	width: 100%;
+	height: 90px;
+	background-color: blue;
+	display: flex;
+	flex-direction: row;
+	gap:40px;
+	background-color: #4287f5;
+}
+
+select{
+	font-family: "Source Code Pro", monospace;
+	outline: 0px;
+}
+
+.fa-bars{
+	font-size: 45px;
+	font-weight: bold;
+	margin: 16px;
+	cursor: pointer;
+}
+
+.menu-slide{
+	width: 270px;
+	height: 100vh;
+	background-color: #3879e0;
+	position: fixed;
+	left:-270px;
+	z-index: 100;
+	top:90px;
+}
+
+.settings-table{
+	margin-top: 50px;
+	width: 500px;
+	height: 600px;
+	background-color: whitesmoke;
+	border-radius: 15px;
+	position: relative;
+	border: 1px solid gray;
+	position: fixed;
+	display: none;
+}
+
+main{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+.close-btn{
+	font-size: 30px;
+	font-weight: bold;
+	position: absolute;
+	right: 0%;
+	margin: 5px;
+	cursor: pointer;
+}
+
+.options-form{
+	position: absolute;
+	top:180px;
+	display: flex;
+	flex-direction: row;
+	gap:10px;
+	margin: 10px;
+}
+
+.add-student-btn{
+	margin-left: 20px;
+	margin-top: 20px;
+}
+
+.add-student-btn a{
+	text-decoration: none;
+	color:white; 
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.options-form select{
+	font-weight: bold;
+	font-size: 20px;
+	border-radius: 5px;
+	outline: 0;
+	cursor: pointer;
+}
+
+.options-homework{
+	position: absolute;
+	display: flex;
+	flex-direction: row;
+	gap:30px;
+	margin: 40px;
+	top:50px;
+}
+
+.home-inputs{
+	display: flex;
+	flex-direction: column;
+	gap:3px;
+	position: relative;
+	bottom: 20px;
+}
+
+.fa-plus{
+	font-size: 24px;
+	position: relative;
+	top:3px;
+	color: white;
+	margin-left: 10px;
+}
+
+.set-table-on{
+	font-size: 18px;
+	color:white;
+	font-weight: bold;
+	margin-top: 20px;
+	margin-left: 20px;
+}
+
+.set-table-on a{
+	text-decoration: none;
+	color: white;
+}
+
+.home-inputs label{
+	font-weight: bold;
+	font-family: "Source Code Pro", monospace;
+}
+
+
+.home-class{
+	height: 30px;
+	font-size: 16px;
+	font-weight: bold;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.homework-inp{
+	outline: 0px;
+	border:1px solid black;
+	font-size: 20px;
+	font-family: "Source Code Pro", monospace;
+	font-weight: bold;
+	border-radius: 3px;
+}
+
+.add-btn-wrap{
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+#add-home-btn{
+	position: absolute;
+	bottom: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 20px;
+	font-weight: bold;
+	cursor: pointer;
+	background-color: #4287f5;
+	color: white;
+	border: none;
+	outline: 0;
+	border-radius: 5px;
+	padding: 5px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.report-btn{
+	margin-left: 20px;
+	margin-top: 20px;
+}
+
+.report-btn a{
+	text-decoration: none;
+	color:white; 
+	font-weight: bold;
+	font-size: 18px;
+}
+
+#homework-desc{
+	height: 212px;
+	outline: 0px;
+	border-radius: 3px;
+	font-size: 20px;
+	resize: none;
+}
+
+.add-hm-cls{
+	margin-top: 15px;
+	margin-left: 40px;
+}
+
+.name-of-object{
+	width: 300px;
+	height: 30px;
+	background-color: whitesmoke;
+	margin: auto;
+	flex-shrink: 0;
+	border: 1px solid black;
+	margin-top: 1px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  width: 5px;
+  height: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.mark-of-object{
+	width: 30px;
+	height: 30px;
+	background-color: white;
+	border:1px solid gray;
+	flex-shrink: 0;
+	border-radius: 2px;
+	border: 1px solid gray;
+	margin-top: 1px;
+	cursor: pointer;
+}
+
+.mark-options{
+	width: 80%;
+	display: flex;
+	flex-direction: column;
+	margin: 10px;
+	margin-top: 20px;
+}
+
+.mark-options input{
+	width: 20px;
+	height: 20px;
+}
+
+.inp-student-div label{
+	font-weight: bold;
+}
+
+.btns-div-add-std{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	width: 100%;
+}
+
+.submit-btn-add-std{
+	position: absolute;
+	bottom: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 20px;
+	font-weight: bold;
+	cursor: pointer;
+	background-color: #4287f5;
+	color: white;
+	border: none;
+	outline: 0;
+	border-radius: 5px;
+	padding: 5px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.submit-mark-wrap{
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+#submit-mark{
+	position: absolute;
+	bottom: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 20px;
+	font-weight: bold;
+	cursor: pointer;
+	background-color: #4287f5;
+	color: white;
+	border: none;
+	outline: 0;
+	border-radius: 5px;
+	padding: 5px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.mark-options div{
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.mark-options label{
+	position: relative;
+	bottom: 4px;
+}
+
+.mark-panel{
+	margin-top: 50px;
+	width: 500px;
+	height: 600px;
+	background-color: whitesmoke;
+	border-radius: 15px;
+	position: relative;
+	border: 1px solid gray;
+	position: fixed;
+	display: none;
+}
+
+.register-object{
+	display: flex;
+	flex-direction: row;
+	flex-shrink: 0;
+	gap:1px;
+}
+
+.choose-mark{
+	margin: 10px;
+}
+
+.inp-student-div{
+	margin-left: 10px;
+}
+
+.h3-to-student{
+	margin-left: 10px;
+	margin-top: 20px;
+}
+
+#student-id-inp{
+	width: 200px;
+	font-size: 16px;
+	outline: 0px;
+	border-radius: 2px;
+	border: 1px solid black;
+	margin-top: 5px;
+}
+
+.close-btn2{
+	position: absolute;
+	right: 0px;
+	margin: 5px;
+	font-size: 30px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.close-btn3{
+	position: absolute;
+	right: 0px;
+	margin: 5px;
+	font-size: 30px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.close-btn4{
+	position: absolute;
+	right: 0px;
+	margin: 5px;
+	font-size: 30px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.main-div-register{
+	width: 1232px;
+	height: 820px;
+	margin-top: 10px;
+	border-radius: 2px;
+	display: flex;
+	flex-direction: column;
+  overflow-x: scroll;
+  overflow-y: scroll;
+  border: 2px solid black;
+
+}
+
+#remove-student{
+	height: 200px;
+}
+
+.homework-for-students{
+
+	width: 1000px;
+	height: auto;
+	margin-top: 30px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	gap:50px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.home-title{
+	margin: 10px;
+}
+
+.button-home{
+	position: absolute;
+	bottom: 5px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	width: 100%;
+}
+
+.button-home button{
+	border: 3px solid #4287f5;
+	margin-top: 20px;
+	width: 100px;
+	padding: 3px;
+	font-size:20px;
+	font-weight: bold;
+	color:white;
+	border-radius: 2px;
+	background-color: #4287f5;
+	cursor: pointer;
+}
+
+.home-content{
+	margin:10px;
+}
+
+.upload-home{
+	margin: 10px;
+	margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+	gap:8px;
+}
+
+.profile-pic{
+	width: 60px;
+	height: 60px;
+	border: 1px solid black;
+	border-radius: 50%;
+	position: absolute;
+	right: 20px;
+	margin-top: 10px;
+}
+
+.profile-pic img{
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+}
+
+.homework-obj{
+	width: 80%;
+	background-color: whitesmoke;
+	border: 1px solid black;
+	border-radius: 10px;
+	position: relative;
+	padding-bottom: 50px;
+	z-index: 0;
+}
+
+@media all and (max-width:500px){
+	.mark-panel{
+		width: 100%;
+	}
+
+	.logo-pic{
+		display: none;
+	}
+
+}
+
+
+@media all and (max-width:440px){
+	.options-homework{
+		margin: 0px;
+		margin-top: 40px;
+		width: 100%;
+	}
+
+	.home-class{
+		margin-right: 20px;
+	}
+
+	.home-inputs{
+		width: 180px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.options-homework{
+		gap:10px;
+	}
+
+	.add-hm-cls{
+		margin-top: 15px;
+		margin-left: 10px;
+	}
+}

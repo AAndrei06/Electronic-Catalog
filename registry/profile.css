@@ -1,0 +1,132 @@
+.logo-pic{
+	margin-left: 20px;
+}
+
+.profile-pic{
+	border: none;
+	margin-top: 22px;
+	margin-right: 10px;
+	border-radius: 0px;
+	width: auto;
+	height: auto;
+}
+
+.submit-info-btn{
+	width: 100px;
+}
+
+.btn-space{
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.profile-pic:hover{
+	border-bottom: 3px solid white;
+}
+
+.charts{
+	width: 100%;
+}
+
+.profile-pic a{
+	text-decoration: none;
+	font-size: 24px;
+	font-weight: bold;
+	color: white;
+}
+
+main{
+	width: 1000px;
+	height: auto;
+	background-color: white;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	display: flex;
+	flex-direction: column;
+	border: 1px solid black;
+	border-radius: 10px;
+}
+
+.profile-photo{
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+	border: 1px solid black;
+}
+
+.profile-photo img{
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+}
+
+.info-personal{
+	display: flex;
+	flex-direction: row;
+	gap:50px;
+	margin: 20px;
+	position: relative;
+	height: 200px;
+	margin-bottom: 100px;
+}
+
+.gpa-ev{
+	margin-left: 30px;
+	position: relative;
+	top:50px;
+}
+
+.profile-info{
+	font-size: 20px;
+	display: flex;
+	flex-direction: column;
+	gap:10px;
+	height: 200px;
+}
+
+.profile-info p{
+	margin: 0px;
+}
+
+
+.charts{
+	display: flex;
+	flex-direction: row;
+}
+
+@media all and (max-width:1005px){
+	main{
+		width: 100%;
+	}
+}
+
+@media all and (max-width:890px){
+	.charts{
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
+	}
+
+	#myChart{
+		width:400px;
+		max-width:400px
+	}
+
+	.profile-info{
+		font-size: 14px;
+	}
+}
+
+@media all and (max-width:460px){
+	.info-personal{
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		margin-bottom: 240px;
+	}
+}
