@@ -1,0 +1,335 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="{% static 'base/css/home.css' %}">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+		<title>Home</title>
+	</head>
+	<body>
+		<header>
+			<div class = "banner">
+				<div class = "menu-btn">
+					<i class="fa-solid fa-bars"></i>
+				</div>
+				<div class = "logo-pic">
+					<img height="85" src="{% static 'base/images/back.png' %}">
+				</div>
+				
+				<div class = "profile-pic">
+					<img src="{% static 'base/images/download.jpeg' %}">
+				</div>
+				
+			</div>
+			<div class="menu-slide">
+				<div class = "links-part">
+					<div class = "set-table-on">Add Homework</div>
+					<div class = "add-student-btn"><a href="{% url 'article-page' %}">Reports|Achievemets</a></div>
+					<div id = "add-std-btn" class="add-student-btn">Add Student</div>
+					<div id = "remove-std-btn" class="add-student-btn">Remove Student</div>
+					<div id = "add-report" class="add-student-btn">Add Report</div>
+					<div class = "options-form">
+						<select>
+							<option selected hidden>Class</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
+						<select>
+							<option selected hidden>Month</option>
+							<option value="jan">January</option>
+							<option value="feb">February</option>
+							<option value="mar">March</option>
+							<option value="apr">April</option>
+							<option value="may">May</option>
+							<option value="jun">June</option>
+							<option value="jul">July</option>
+							<option value="aug">August</option>
+							<option value="sep">September</option>
+							<option value="oct">Octomber</option>
+							<option value="nov">November</option>
+							<option value="dec">December</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</header>
+		<main>
+			<div class = "settings-table">
+				<div class = "close-btn">
+					<i class="fa-regular fa-circle-xmark"></i>
+				</div>
+				<h3 class = "add-hm-cls">Add Homework</h3>
+				<div class = "options-homework">
+					<div class = "home-inputs">
+						<label for = "subject">Subject:</label>
+						<input type="text" id = "subject" class = "homework-inp">
+						<label style = "margin-top:10px" for="homework-desc">Description</label>
+						<textarea id = "homework-desc"></textarea>
+						<label style = "margin-top:10px" for="home-file-inp">Choose a file</label>
+						<input multiple id = "home-file-inp" type="file" name="file-input-homework">
+					</div>
+					<select class = "home-class">
+						<option selected hidden>Class</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+					</select>
+				</div>
+				<div class="btns-div-add-std">
+					<button class = "submit-btn-add-std">Submit</button>
+				</div>
+			</div>
+			<div class = "mark-panel">
+				<div class = "close-btn2">
+					<i class="fa-regular fa-circle-xmark"></i>
+				</div>
+				<h3 class = "choose-mark">Choose a mark</h3>
+				<div class = "mark-options">
+					<div>
+						<input type="radio" name="radio" id = "mark1" value = "1">
+						<label for = "mark1">1</label>
+					</div>
+					<div>
+						<input type="radio" name="radio" id = "mark2" value = "2">
+						<label for = "mark2">2</label>
+					</div>
+					<div>
+						<input type="radio" name="radio" id = "mark3" value = "3">
+						<label for = "mark3">3</label>
+					</div>
+					<div>
+						<input type="radio" name="radio" id = "mark4" value = "4">
+						<label for = "mark4">4</label>
+					</div>
+					<div>
+						<input type="radio" name="radio" id = "mark5" value = "5">
+						<label for = "mark5">5</label>
+					</div>
+					<div>
+						<input type="radio" name="radio" id = "mark6" value = "6">
+						<label for = "mark6">6</label>
+					</div>
+					<div>
+						<input type="radio" name="radio" id = "mark7" value = "7">
+						<label for = "mark7">7</label>
+					</div>
+					<div>
+						<input type="radio" name="radio" id = "mark8" value = "8">
+						<label for = "mark8">8</label>
+					</div>
+					<div>
+						<input type="radio" name="radio" id = "mark9" value = "9">
+						<label for = "mark9">9</label>
+					</div>
+					<div>
+						<input type="radio" name="radio" id = "mark10" value = "10">
+						<label for = "mark10">10</label>
+					</div>
+					<br>
+					<div>
+						<input type="radio" name="radio" id = "not" value = "-1">
+						<label for = "not">Not present</label>
+					</div>
+				</div>
+				<div class="btns-div-add-std">
+					<button class = "submit-btn-add-std">Submit</button>
+				</div>
+			</div>
+
+			<div id = "add-student" class = "mark-panel">
+				<div class = "close-btn3">
+					<i class="fa-regular fa-circle-xmark"></i>
+				</div>
+				<h3 class = "choose-mark">Add Student</h3>
+				
+				<div class = "inputs-div">
+					<div class = "inp-student-div">
+						<label for = "student-id-inp">Student ID</label>
+						<br>
+						<input id = "student-id-inp" type="text" name="student-id">
+					</div>
+					<h3 class = "h3-to-student">Class</h3>
+					<div class = "mark-options">
+						<div>
+							<input type="radio" name="radio" id = "mark1" value = "1">
+							<label for = "mark1">1</label>
+						</div>
+						<div>
+							<input type="radio" name="radio" id = "mark2" value = "2">
+							<label for = "mark2">2</label>
+						</div>
+						<div>
+							<input type="radio" name="radio" id = "mark3" value = "3">
+							<label for = "mark3">3</label>
+						</div>
+						<div>
+							<input type="radio" name="radio" id = "mark4" value = "4">
+							<label for = "mark4">4</label>
+						</div>
+						<div>
+							<input type="radio" name="radio" id = "mark5" value = "5">
+							<label for = "mark5">5</label>
+						</div>
+						<div>
+							<input type="radio" name="radio" id = "mark6" value = "6">
+							<label for = "mark6">6</label>
+						</div>
+						<div>
+							<input type="radio" name="radio" id = "mark7" value = "7">
+							<label for = "mark7">7</label>
+						</div>
+						<div>
+							<input type="radio" name="radio" id = "mark8" value = "8">
+							<label for = "mark8">8</label>
+						</div>
+						<div>
+							<input type="radio" name="radio" id = "mark9" value = "9">
+							<label for = "mark9">9</label>
+						</div>
+						<div>
+							<input type="radio" name="radio" id = "mark10" value = "10">
+							<label for = "mark10">10</label>
+						</div>
+						<div>
+							<input type="radio" name="radio" id = "mark10" value = "11">
+							<label for = "mark10">11</label>
+						</div>
+						<div>
+							<input type="radio" name="radio" id = "mark10" value = "12">
+							<label for = "mark10">12</label>
+						</div>
+					</div>
+					<div class="btns-div-add-std">
+						<button class = "submit-btn-add-std">Submit</button>
+					</div>
+				</div>
+			</div>
+
+			<div id = "remove-student" class = "mark-panel">
+				<div class = "close-btn4">
+					<i class="fa-regular fa-circle-xmark"></i>
+				</div>
+				<h3 class = "choose-mark">Remove Student</h3>
+				
+				<div class = "inputs-div">
+					<div class = "inp-student-div">
+						<label for = "student-id-inp">Student ID</label>
+						<br>
+						<input id = "student-id-inp" type="text" name="student-id">
+					</div>
+					
+					<div class="btns-div-add-std">
+						<button class = "submit-btn-add-std">Submit</button>
+					</div>
+				</div>
+			</div>
+			<div id = "report-add-table" class = "mark-panel">
+				<div class = "close-btn5">
+					<i class="fa-regular fa-circle-xmark"></i>
+				</div>
+				<h3 class = "h3-report">Add Report</h3>
+				<div class = "inputs-div-report">
+					<div>
+						<label for="title-of-post"><b>Title for report</b></label>
+						<input id = "title-of-post" class = "input-box-rep" type="text" name="">
+					</div>
+					<div>
+						<label for="text-desc-rep"><b>Description for report</b></label>
+						<textarea id = "text-desc-rep" class = "text-description-report input-box-rep"></textarea>
+					</div>
+					<div>
+						<input type="file" name="">
+					</div>
+				</div>
+				<div class = "btns-div-add-std">
+					<button class = "submit-btn-add-std">Submit</button>
+				</div>
+			</div>
+			<div class = "main-div-register">
+				
+				<div class = "register-object">
+				</div>
+				
+			</div>
+			<!--
+					<div class="homework-for-students">
+								<div class = "homework-obj">
+											<div class = "home-title">
+														<h3>De facut ceva important</h3>
+											</div>
+											<div class = "home-content">
+														<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+																tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+																quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+																consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+																cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+																proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+																tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+																quis nostrud exercitation ullamco labLoreoris nisi ut aliquip ex ea commodo
+																consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+																cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+														proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+											</div>
+											<div class = "upload-home">
+														<label for = "upload-id-hmwork">Upload your homework:</label>
+														<input multiple type="file" id = "upload-id-hmwork">
+											</div>
+											<div class = "button-home">
+														<button>Submit</button>
+											</div>
+								</div>
+								<div class = "homework-obj">
+											<div class = "home-title">
+														<h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+														tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+														quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+														consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+														cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+														proident, sunt in culpa qui officia deserunt mollit anim id est laborum.De facut ceva important</h3>
+											</div>
+											<div class = "home-content">
+														<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+																tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+																quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+																consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+																cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+														proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+											</div>
+											<div class = "upload-home">
+														<label for = "upload-id-hmwork">Upload your homework:</label>
+														<input multiple type="file" id = "upload-id-hmwork">
+											</div>
+											<div class = "button-home">
+														<button>Submit</button>
+											</div>
+								</div>
+					</div>
+			-->
+		</main>
+	</body>
+	<script src="https://kit.fontawesome.com/8383e75d7d.js" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="{% static 'base/js/home.js' %}"></script>
+</html>
