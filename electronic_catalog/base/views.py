@@ -2,16 +2,16 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def home(request):
-	return render(request,'base/home.html')
+	return render(request,'home.html')
 
 def article(request):
-	return render(request,'base/article.html')
+	return render(request,'article.html')
 
 def login(request):
-	return render(request,'base/login.html')
+	return render(request,'login.html')
 
 def register(request):
-	return render(request,'base/sign_up.html')
+	return render(request,'sign_up.html')
 
 def profile(request):
-	return render(request,'base/profile.html')
+	return render(request,'profile.html')
