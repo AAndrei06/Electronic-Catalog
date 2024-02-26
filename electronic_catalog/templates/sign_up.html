@@ -4,32 +4,38 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel = "stylesheet" type="text/css" href="{% static 'base/css/sign_up.css' %}">
+	<link rel = "stylesheet" type="text/css" href="{% static 'css/sign_up.css' %}">
 	<title>Sign UP</title>
 </head>
-<body style="background: url('{% static 'base/images/book.jpg' %}');">
+<body style="background: url('{% static 'images/book.jpg' %}');">
 	<header>
 		<div class = "banner">
 			<div>
-				<img src="{% static 'base/images/back.png' %}" class = "banner-img">
+				<img src="{% static 'images/back.png' %}" class = "banner-img">
 			</div>
 		</div>
 	</header>
 	<main>
 		<div class = "auth-box">
-			<h3>Sign Up</h3>
-			<div class = "form-auth">
-				<label for="email-inp">Email</label>
-				<input type="text" id = "email-inp" class = "text-inp" placeholder="Email">
-				<label for="name-inp">Name</label>
-				<input type="text" id = "name-inp" class = "text-inp" placeholder="Name">
-				<label for="pass-inp">Password</label>
-				<input type="password" id = "pass-inp" class = "text-inp" placeholder="Password">
-				<label for="repass-inp">Repeat Password</label>
-				<input type="password" id = "repass-inp" class = "text-inp" placeholder="Repeat Password">
-				<button id = "btn-submit" type="submit">Sign Up</button>
-			</div>
+			<form method="POST" action = '.'>
+				{% csrf_token %}
+				<h3>Sign Up</h3>
+				<p class="text-error">Something didnthappen as planned</p>
+				<div class = "form-auth">
+					<label for="name-inp">Name</label>
+					<input type="text" id = "name-inp" name = "username" class = "text-inp" placeholder="Name">
+					<label for="email-inp">Email</label>
+					<input type="text" id = "email-inp" name = "email" class = "text-inp" placeholder="Email">
+					<label for="pass-inp">Password</label>
+					<input type="password" id = "pass-inp" name = "password" class = "text-inp" placeholder="Password">
+					<label for="repass-inp">Repeat Password</label>
+					<input type="password" id = "repass-inp" name = "password2" class = "text-inp" placeholder="Repeat Password">
+					<button id = "btn-submit" type="submit">Sign Up</button>
+				</div>
+			</form>
 		</div>
 	</main>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript" src="{% static 'js/django-js/register.js' %}"></script>
 </body>
 </html>
