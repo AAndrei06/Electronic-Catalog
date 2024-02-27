@@ -20,7 +20,7 @@
 			<form method="POST" action = '.'>
 				{% csrf_token %}
 				<h3>Sign Up</h3>
-				<p class="text-error">Something didnthappen as planned</p>
+				<p class="text-error"></p>
 				<div class = "form-auth">
 					<label for="name-inp">Name</label>
 					<input type="text" id = "name-inp" name = "username" class = "text-inp" placeholder="Name">
@@ -35,6 +35,9 @@
 			</form>
 		</div>
 	</main>
+	<div class = "link-wrap">
+		<p>Already have an account? <a href = "{% url 'login-page' %}">Login</a></p>
+	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript" src="{% static 'js/django-js/register.js' %}"></script>
 </body>

@@ -57,7 +57,7 @@ main{
 
 .options-form{
 	position: absolute;
-	top:220px;
+	top:260px;
 	display: flex;
 	flex-direction: row;
 	gap:10px;

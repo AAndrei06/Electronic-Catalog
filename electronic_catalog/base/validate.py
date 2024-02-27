@@ -26,4 +26,3 @@ def validate_input(username,email,password,password2):
 
 	return "valid"
 
- 
