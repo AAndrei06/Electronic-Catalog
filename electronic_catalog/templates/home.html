@@ -100,7 +100,7 @@
 					</select>
 				</div>
 				<div class="btns-div-add-std">
-					<button class = "submit-btn-add-std">Submit</button>
+					<button id = "add-homework-btn-submit" class = "submit-btn-add-std">Submit</button>
 				</div>
 			</div>
 			<div class = "mark-panel">
@@ -262,11 +262,11 @@
 						<textarea id = "text-desc-rep" class = "text-description-report input-box-rep"></textarea>
 					</div>
 					<div>
-						<input type="file" name="">
+						<input type="file" id = "report-file-input" accept="image/png, image/gif, image/jpeg">
 					</div>
 				</div>
 				<div class = "btns-div-add-std">
-					<button class = "submit-btn-add-std">Submit</button>
+					<button id = "add-report-btn-submit" class = "submit-btn-add-std">Submit</button>
 				</div>
 			</div>
 			<div class = "main-div-register">
@@ -333,4 +333,5 @@
 	</body>
 	<script src="https://kit.fontawesome.com/8383e75d7d.js" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="{% static 'js/home.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/django-js/home.js' %}"></script>
 </html>
