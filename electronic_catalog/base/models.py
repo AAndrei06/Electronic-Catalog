@@ -23,3 +23,4 @@ class Article(models.Model):
 	description = models.TextField(blank = False,editable = True)
 	image = models.ImageField(upload_to = 'media',default = "user.png",blank = True, null = True)
 	date_posted = models.DateField(auto_now_add = True)
+	article_id = models.UUIDField(default = uuid.uuid4(),blank = False,editable=False)

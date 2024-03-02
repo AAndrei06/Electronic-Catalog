@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . import validate
 from django.contrib import auth
+from .models import Article
 
 class RegisterView(View):
 	def post(self, request):
@@ -55,8 +56,15 @@ def logout_view(request):
 	auth.logout(request)
 	return redirect('login-page')
 
-def article(request):
-	return render(request,'article.html')
+class ArticlesView(LoginRequiredMixin, View):
+	login_url = "/login/"
+	redirect_field_name = "article/"
+	def get(self, request):
+		context = {
+			"articles":Article.objects.all().order_by('-date_posted')
+		}
+		return render(request,'article.html',context=context)
+
 
 def profile(request):
 	return render(request,'profile.html')

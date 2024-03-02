@@ -11,6 +11,19 @@ def create_report(title,desc,image):
 	print("Saved")
 	return Article.objects.create(title=title,description=desc,image=image)
 
+@database_sync_to_async
+def edit_report(title,desc,article_id):
+	article = Article.objects.get(article_id=article_id)
+	article.description = desc
+	article.title = title
+	article.save()
+
+
+@database_sync_to_async
+def delete_report(article_id):
+	return Article.objects.get(article_id=article_id).delete()
+
+
 class CatalogConsumer(AsyncWebsocketConsumer):
 
 	async def connect(self):
@@ -32,9 +45,33 @@ class CatalogConsumer(AsyncWebsocketConsumer):
 			ext = format.split('/')[-1] 
 			data = ContentFile(base64.b64decode(imgstr), name='temp.' + ext)
 			await create_report(title,desc,data)
-		
-		await self.channel_layer.group_send(self.room_group_name, {"type": "chat.message", "message": message})
+
+		elif (message == "Article Edit"):
+			await edit_report(text_data_json["title"],text_data_json["description"],text_data_json["id"])
+			await self.channel_layer.group_send(self.room_group_name, {"type": "chat.message",
+																	   "message": message,
+																	   "id":text_data_json["id"],
+																	   "title":text_data_json["title"],
+																	   "description":text_data_json["description"]})
+		elif (message == "Article Delete"):
+			await delete_report(text_data_json["id"])
+			await self.channel_layer.group_send(self.room_group_name, {"type": "chat.message",
+																	   "message": message,
+																	   "id":text_data_json["id"]})
+		else:
+			await self.channel_layer.group_send(self.room_group_name, {"type": "chat.message",
+																	   "message": message})
 
 	async def chat_message(self, event):
 		message = event["message"]
-		await self.send(text_data=json.dumps({"message":message}))
+		print(event)
+		if (message == "Article Edit"):
+			await self.send(text_data=json.dumps({"message":message,
+												  "id":event["id"],
+												  "title":event["title"],
+												  "description":event["description"]}))
+		elif(message == "Article Delete"):
+			await self.send(text_data=json.dumps({"message":message,
+												  "id":event["id"]}))
+		else:
+			await self.send(text_data=json.dumps({"message":message}))
