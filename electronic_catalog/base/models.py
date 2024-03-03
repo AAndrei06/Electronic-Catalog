@@ -24,3 +24,14 @@ class Article(models.Model):
 	image = models.ImageField(upload_to = 'media',default = "user.png",blank = True, null = True)
 	date_posted = models.DateField(auto_now_add = True)
 	article_id = models.UUIDField(default = uuid.uuid4(),blank = False,editable=False)
+
+class HomeWorkToDo(models.Model):
+	title = models.CharField(max_length = 100,blank = False,editable = True, default="HomeWork")
+	description = models.CharField(max_length = 1000,blank = False,editable = True, default="Description")
+	received_homework = models.ManyToManyField(Student)
+	homework_id = models.UUIDField(default = uuid.uuid4(),blank = False,editable=False)
+	grade = models.IntegerField(default = 0,blank = False,editable=False)
+
+class HomeWorkFiles(models.Model):
+	homework = models.ForeignKey(HomeWorkToDo,on_delete=models.CASCADE)
+	files = models.FileField(upload_to="media")

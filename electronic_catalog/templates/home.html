@@ -34,7 +34,33 @@
 					<div id = "add-report" class="add-student-btn">Add Report</div>
 					<div id = "logout" class="add-student-btn"><a href="{% url 'logout-page' %}">Logout</a></div>
 					<div class = "options-form">
-						<select>
+						<input id = "number-inp-class" type="number" name="number-class" min="1" max="12" placeholder="class">
+						<input id = "text-inp-month" type="text" name="number-class" placeholder="month">
+						<div class = "submit-month-class">
+							<button>Search Class</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<main>
+			<div class = "settings-table">
+				<div class = "close-btn">
+					<i class="fa-regular fa-circle-xmark"></i>
+				</div>
+				<h3 class = "add-hm-cls">Add Homework</h3>
+				<form id = "add-home-form" method="POST" enctype="multipart/form-data">
+					{% csrf_token %}
+					<div class = "options-homework">
+						<div class = "home-inputs">
+							<label for = "subject">Subject:</label>
+							<input type="text" id = "subject" class = "homework-inp" name = "title-of-homework">
+							<label style = "margin-top:10px" for="homework-desc">Description</label>
+							<textarea id = "homework-desc" name="description-of-homework"></textarea>
+							<label style = "margin-top:10px" for="home-file-inp">Choose a file</label>
+							<input multiple id = "home-file-inp" type="file" name="file-input-homework">
+						</div>
+						<select class = "home-class" name="class-option-name-home">
 							<option selected hidden>Class</option>
 							<option value="1">1</option>
 							<option value="2">2</option>
@@ -49,59 +75,12 @@
 							<option value="11">11</option>
 							<option value="12">12</option>
 						</select>
-						<select>
-							<option selected hidden>Month</option>
-							<option value="jan">January</option>
-							<option value="feb">February</option>
-							<option value="mar">March</option>
-							<option value="apr">April</option>
-							<option value="may">May</option>
-							<option value="jun">June</option>
-							<option value="jul">July</option>
-							<option value="aug">August</option>
-							<option value="sep">September</option>
-							<option value="oct">Octomber</option>
-							<option value="nov">November</option>
-							<option value="dec">December</option>
-						</select>
 					</div>
-				</div>
-			</div>
-		</header>
-		<main>
-			<div class = "settings-table">
-				<div class = "close-btn">
-					<i class="fa-regular fa-circle-xmark"></i>
-				</div>
-				<h3 class = "add-hm-cls">Add Homework</h3>
-				<div class = "options-homework">
-					<div class = "home-inputs">
-						<label for = "subject">Subject:</label>
-						<input type="text" id = "subject" class = "homework-inp">
-						<label style = "margin-top:10px" for="homework-desc">Description</label>
-						<textarea id = "homework-desc"></textarea>
-						<label style = "margin-top:10px" for="home-file-inp">Choose a file</label>
-						<input multiple id = "home-file-inp" type="file" name="file-input-homework">
+				
+					<div class="btns-div-add-std">
+						<button type="submit" id = "add-homework-btn-submit" class = "submit-btn-add-std">Submit</button>
 					</div>
-					<select class = "home-class">
-						<option selected hidden>Class</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
-						<option value="9">9</option>
-						<option value="10">10</option>
-						<option value="11">11</option>
-						<option value="12">12</option>
-					</select>
-				</div>
-				<div class="btns-div-add-std">
-					<button id = "add-homework-btn-submit" class = "submit-btn-add-std">Submit</button>
-				</div>
+				</form>
 			</div>
 			<div class = "mark-panel">
 				<div class = "close-btn2">
@@ -331,6 +310,7 @@
 			-->
 		</main>
 	</body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://kit.fontawesome.com/8383e75d7d.js" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="{% static 'js/home.js' %}"></script>
 	<script type="text/javascript" src="{% static 'js/django-js/home.js' %}"></script>

@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . import validate
 from django.contrib import auth
-from .models import Article
+from .models import Article, HomeWorkToDo, HomeWorkFiles
 
 class RegisterView(View):
 	def post(self, request):
@@ -49,6 +49,20 @@ class LoginView(View):
 class HomeView(LoginRequiredMixin, View):
 	login_url = "/login/"
 	redirect_field_name = "/"
+	def post(self, request):
+		if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+			title = request.POST.get("title")
+			description = request.POST.get("description")
+			grade = request.POST.get("grade")
+			files = request.FILES.getlist("files")
+			print(title)
+			print(description)
+			print(grade)
+			new_home = HomeWorkToDo.objects.create(title = title, description = description, grade = grade)
+			for file in files:
+				HomeWorkFiles.objects.create(files = file,homework = new_home).save()
+		return render(request,'home.html')
+
 	def get(self, request):
 		return render(request,'home.html')
 
