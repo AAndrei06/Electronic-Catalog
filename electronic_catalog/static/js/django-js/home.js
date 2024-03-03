@@ -2,6 +2,7 @@ let addReport = document.getElementById("add-report-btn-submit");
 let reportTitle = document.getElementById("title-of-post");
 let reportDescription = document.getElementById("text-desc-rep");
 let imageReport = document.getElementById("report-file-input");
+
 const web_socket = new WebSocket('ws://'+window.location.host+'/');
 console.log('ws://'+window.location.host+'/');
 
@@ -63,4 +64,30 @@ $(document).ready(function(){
 			}
 		});
 	})
+})
+
+// Add Student
+
+let addStudent = document.getElementsByName("add-student-btn-class")[0];
+
+addStudent.addEventListener("click",() => {
+	let classOfStudent = document.querySelector('input[name="radio1"]:checked').value;
+	let studentID = document.getElementsByName('student-id-add-to-class')[0].value;
+	web_socket.send(JSON.stringify({
+		'message':"Student Add",
+		'ID':studentID,
+		'classroom':classOfStudent
+	}))
+})
+
+// Remove Student
+
+let removeStd = document.getElementsByName("remove-student-from-classroom")[0];
+
+removeStd.addEventListener("click",() => {
+	let studentID = document.getElementsByName('student-id-remove')[0].value;
+	web_socket.send(JSON.stringify({
+		'message':"Student Remove",
+		'ID':studentID,
+	}))
 })

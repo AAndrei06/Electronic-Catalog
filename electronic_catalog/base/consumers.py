@@ -1,6 +1,6 @@
 import json
 import base64
-from .models import Article
+from .models import Article, Classroom, Student
 from django.core.files.base import ContentFile
 from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import async_to_sync
@@ -18,11 +18,25 @@ def edit_report(title,desc,article_id):
 	article.title = title
 	article.save()
 
-
 @database_sync_to_async
 def delete_report(article_id):
 	return Article.objects.get(article_id=article_id).delete()
 
+@database_sync_to_async
+def add_student_to_classroom(student_id, classroom):
+	class_of_std = Classroom.objects.get(number = classroom)
+	student_obj = Student.objects.get(student_id=student_id)
+	student_obj.grade = classroom
+	student_obj.save()
+	class_of_std.students.add(student_obj)
+
+@database_sync_to_async
+def remove_student_from_classroom(student_id):
+	student_obj = Student.objects.get(student_id=student_id)
+	classroom = Classroom.objects.get(number = student_obj.grade)
+	classroom.students.remove(student_obj)
+	student_obj.grade = 0
+	student_obj.save()
 
 class CatalogConsumer(AsyncWebsocketConsumer):
 
@@ -58,6 +72,14 @@ class CatalogConsumer(AsyncWebsocketConsumer):
 			await self.channel_layer.group_send(self.room_group_name, {"type": "chat.message",
 																	   "message": message,
 																	   "id":text_data_json["id"]})
+		elif (message == "Student Add"):
+			await add_student_to_classroom(text_data_json["ID"],text_data_json["classroom"])
+			await self.channel_layer.group_send(self.room_group_name, {"type": "chat.message",
+																	   "message": message})
+		elif (message == "Student Remove"):
+			await remove_student_from_classroom(text_data_json["ID"])
+			await self.channel_layer.group_send(self.room_group_name, {"type": "chat.message",
+																	   "message": message})
 		else:
 			await self.channel_layer.group_send(self.room_group_name, {"type": "chat.message",
 																	   "message": message})
@@ -73,5 +95,7 @@ class CatalogConsumer(AsyncWebsocketConsumer):
 		elif(message == "Article Delete"):
 			await self.send(text_data=json.dumps({"message":message,
 												  "id":event["id"]}))
+		elif (message == "Student Add" or message == "Student Delete"):
+			await self.send(text_data=json.dumps({"message":message}))
 		else:
 			await self.send(text_data=json.dumps({"message":message}))

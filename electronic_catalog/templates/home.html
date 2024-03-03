@@ -20,9 +20,9 @@
 					<img height="85" src="{% static 'images/back.png' %}">
 				</div>
 				
-				<div class = "profile-pic">
+				<a href="{% url 'profile-page' %}"><div class = "profile-pic">
 					<img src="{% static 'images/download.jpeg' %}">
-				</div>
+				</div></a>
 				
 			</div>
 			<div class="menu-slide">
@@ -149,61 +149,61 @@
 					<div class = "inp-student-div">
 						<label for = "student-id-inp">Student ID</label>
 						<br>
-						<input id = "student-id-inp" type="text" name="student-id">
+						<input id = "student-id-inp" type="text" name="student-id-add-to-class">
 					</div>
 					<h3 class = "h3-to-student">Class</h3>
 					<div class = "mark-options">
 						<div>
-							<input type="radio" name="radio" id = "mark1" value = "1">
+							<input type="radio" name="radio1" id = "mark1" value = "1">
 							<label for = "mark1">1</label>
 						</div>
 						<div>
-							<input type="radio" name="radio" id = "mark2" value = "2">
+							<input type="radio" name="radio1" id = "mark2" value = "2">
 							<label for = "mark2">2</label>
 						</div>
 						<div>
-							<input type="radio" name="radio" id = "mark3" value = "3">
+							<input type="radio" name="radio1" id = "mark3" value = "3">
 							<label for = "mark3">3</label>
 						</div>
 						<div>
-							<input type="radio" name="radio" id = "mark4" value = "4">
+							<input type="radio" name="radio1" id = "mark4" value = "4">
 							<label for = "mark4">4</label>
 						</div>
 						<div>
-							<input type="radio" name="radio" id = "mark5" value = "5">
+							<input type="radio" name="radio1" id = "mark5" value = "5">
 							<label for = "mark5">5</label>
 						</div>
 						<div>
-							<input type="radio" name="radio" id = "mark6" value = "6">
+							<input type="radio" name="radio1" id = "mark6" value = "6">
 							<label for = "mark6">6</label>
 						</div>
 						<div>
-							<input type="radio" name="radio" id = "mark7" value = "7">
+							<input type="radio" name="radio1" id = "mark7" value = "7">
 							<label for = "mark7">7</label>
 						</div>
 						<div>
-							<input type="radio" name="radio" id = "mark8" value = "8">
+							<input type="radio" name="radio1" id = "mark8" value = "8">
 							<label for = "mark8">8</label>
 						</div>
 						<div>
-							<input type="radio" name="radio" id = "mark9" value = "9">
+							<input type="radio" name="radio1" id = "mark9" value = "9">
 							<label for = "mark9">9</label>
 						</div>
 						<div>
-							<input type="radio" name="radio" id = "mark10" value = "10">
+							<input type="radio" name="radio1" id = "mark10" value = "10">
 							<label for = "mark10">10</label>
 						</div>
 						<div>
-							<input type="radio" name="radio" id = "mark10" value = "11">
+							<input type="radio" name="radio1" id = "mark10" value = "11">
 							<label for = "mark10">11</label>
 						</div>
 						<div>
-							<input type="radio" name="radio" id = "mark10" value = "12">
+							<input type="radio" name="radio1" id = "mark10" value = "12">
 							<label for = "mark10">12</label>
 						</div>
 					</div>
 					<div class="btns-div-add-std">
-						<button class = "submit-btn-add-std">Submit</button>
+						<button name = "add-student-btn-class" class = "submit-btn-add-std">Submit</button>
 					</div>
 				</div>
 			</div>
@@ -218,11 +218,11 @@
 					<div class = "inp-student-div">
 						<label for = "student-id-inp">Student ID</label>
 						<br>
-						<input id = "student-id-inp" type="text" name="student-id">
+						<input id = "student-id-inp" type="text" name="student-id-remove">
 					</div>
 					
 					<div class="btns-div-add-std">
-						<button class = "submit-btn-add-std">Submit</button>
+						<button name = "remove-student-from-classroom" class = "submit-btn-add-std">Submit</button>
 					</div>
 				</div>
 			</div>

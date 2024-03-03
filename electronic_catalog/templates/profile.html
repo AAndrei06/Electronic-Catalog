@@ -10,7 +10,7 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 		<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
-		<title>Home</title>
+		<title>Profile</title>
 	</head>
 	<body>
 		<header>
@@ -20,28 +20,30 @@
 				</div>
 			
 				<div class = "profile-pic">
-					<a href="home.html">Home</a>
+					<a href="home.html">Profile</a>
 				</div>
 			</div>
 		</header>
 		<main>
+			{% if student %}
 			<div class = "info-personal">
 				<div class = "profile-photo">
-					<img src="{% static 'images/download.jpeg' %}">
+					<img src="{{ student.image.url }}">
 					<input type="file" name="">
 				</div>
 				<div class = "profile-info">
-					<p><b>Class:</b> 11</p>
-					<p><b>Current GPA:</b> 11.4</p>
-					<p><b>Name:</b> Andrew Arseni</p>
-					<p><b>Email:</b> helloworld@gmail.com</p>
-					<p><b>Homework to do:</b> 5</p>
-					<p><b>Homework done:</b> 7</p>
-					<p><b>ID:</b> 73h54j3537</p>
+					<p><b>Class:</b> {{ student.grade }}</p>
+					<p><b>Current GPA:</b> {{ student.gpa }}</p>
+					<p><b>Name:</b> {{ student.name }}</p>
+					<p><b>Email:</b> {{ student.email }}</p>
+					<p><b>Homework to do:</b> {{ student.homework_to_do }}</p>
+					<p><b>Homework done:</b> {{ student.homework_done }}</p>
+					<p><b>ID:</b> {{ student.student_id }}</p>
 				</div>
 			</div>
+			{% endif %}
 			<div class = "btn-space">
-				<button class = "submit-info-btn">Submit Image</button>
+				<button class = "submit-info-btn">Save Image</button>
 			</div>
 			<div class = "charts">
 				<canvas id="myChart" style="width:100%;max-width:600px"></canvas>

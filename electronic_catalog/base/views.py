@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . import validate
 from django.contrib import auth
-from .models import Article, HomeWorkToDo, HomeWorkFiles
+from .models import Article, HomeWorkToDo, HomeWorkFiles, Student
 
 class RegisterView(View):
 	def post(self, request):
@@ -18,6 +18,7 @@ class RegisterView(View):
 			if (responseText == 'valid' and not User.objects.filter(username=name).exists() and not User.objects.filter(email = email).exists()):
 				user = User.objects.create_user(username=name,email=email,password=password)
 				user.save()
+				Student.objects.create(name=name,email=email,user_student = user)
 				userCreated = auth.authenticate(username=name, password=password)
 				auth.login(request,user)
 			return JsonResponse({"text":responseText},status = 200)
@@ -78,6 +79,19 @@ class ArticlesView(LoginRequiredMixin, View):
 			"articles":Article.objects.all().order_by('-date_posted')
 		}
 		return render(request,'article.html',context=context)
+
+
+class ProfileView(LoginRequiredMixin, View):
+	login_url = "/login/"
+	redirect_field_name = "profile/"
+	def get(self, request):
+		try:
+			context = {
+				"student":Student.objects.get(user_student = request.user),
+			}
+		except:
+			context = {}
+		return render(request,'profile.html',context=context)
 
 
 def profile(request):
