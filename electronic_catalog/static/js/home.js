@@ -105,7 +105,7 @@ closeBTN2.onclick = () => {
 
 
 let mainDiv = document.querySelector(".main-div-register");
-
+/*
 let tm = document.createElement("div");
 tm.classList.add("register-object");
 tm.innerHTML += '<div class = "name-of-object">Ianuarie</div>';
@@ -123,7 +123,7 @@ for (let i = 0;i < 30;i++){
 	}
 	mainDiv.appendChild(tmp);
 }
-
+*/
 
 let marks = document.querySelectorAll(".mark-of-object");
 

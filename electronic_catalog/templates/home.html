@@ -33,13 +33,16 @@
 					<div id = "remove-std-btn" class="add-student-btn">Remove Student</div>
 					<div id = "add-report" class="add-student-btn">Add Report</div>
 					<div id = "logout" class="add-student-btn"><a href="{% url 'logout-page' %}">Logout</a></div>
-					<div class = "options-form">
-						<input id = "number-inp-class" type="number" name="number-class" min="1" max="12" placeholder="class">
-						<input id = "text-inp-month" type="text" name="number-class" placeholder="month">
-						<div class = "submit-month-class">
-							<button>Search Class</button>
+					<form method="POST" action=".">
+						{% csrf_token %}
+						<div class = "options-form">
+								<input id = "number-inp-class" type="number" name="number-class-students" min="1" max="12" placeholder="class">
+								<input id = "text-inp-month" type="text" name="number-month-students" placeholder="month">
+								<div class = "submit-month-class">
+									<button type="submit">Search Class</button>
+								</div>
 						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 		</header>
@@ -249,9 +252,23 @@
 				</div>
 			</div>
 			<div class = "main-div-register">
-				
-				<div class = "register-object">
-				</div>
+				{% if students %}
+					<div class = "register-object">
+						<div class = "name-of-object">{{ month }}</div>
+						{% for number in range %}
+							<div class = "mark-of-object"><p style="margin:4px">{{ number }}</p></div>
+						{% endfor %}
+					</div>
+					{% for student in students %}
+						<div class = "register-object">
+							<div class = "name-of-object">{{ student.name }}</div>
+
+							{% for number in range %}
+								<div class = "mark-of-object" id = "" value = "{{ number }}"><p style="margin:4px">10</p></div>
+							{% endfor %}
+						</div>
+					{% endfor %}
+				{% endif %}
 				
 			</div>
 			<!--

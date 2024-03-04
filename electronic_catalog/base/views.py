@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . import validate
 from django.contrib import auth
-from .models import Article, HomeWorkToDo, HomeWorkFiles, Student
+from .models import Article, HomeWorkToDo, HomeWorkFiles, Student, Mark
 
 class RegisterView(View):
 	def post(self, request):
@@ -18,8 +18,10 @@ class RegisterView(View):
 			if (responseText == 'valid' and not User.objects.filter(username=name).exists() and not User.objects.filter(email = email).exists()):
 				user = User.objects.create_user(username=name,email=email,password=password)
 				user.save()
-				Student.objects.create(name=name,email=email,user_student = user)
+				
+				student_created = Student.objects.create(name=name,email=email,user_student = user)
 				userCreated = auth.authenticate(username=name, password=password)
+				
 				auth.login(request,user)
 			return JsonResponse({"text":responseText},status = 200)
 				
@@ -51,6 +53,7 @@ class HomeView(LoginRequiredMixin, View):
 	login_url = "/login/"
 	redirect_field_name = "/"
 	def post(self, request):
+		context = {}
 		if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
 			title = request.POST.get("title")
 			description = request.POST.get("description")
@@ -62,7 +65,20 @@ class HomeView(LoginRequiredMixin, View):
 			new_home = HomeWorkToDo.objects.create(title = title, description = description, grade = grade)
 			for file in files:
 				HomeWorkFiles.objects.create(files = file,homework = new_home).save()
-		return render(request,'home.html')
+		else:
+			grade = request.POST.get("number-class-students")
+			month = request.POST.get("number-month-students")
+			print(grade)
+			print(month)
+			context = {
+				'students':Student.objects.filter(grade=grade),
+				"range":list(range(1,32)),
+				"month":month,
+				"grade":grade,
+				"range2":len(list(Student.objects.filter(grade=grade)))
+			}
+
+		return render(request,'home.html',context)
 
 	def get(self, request):
 		return render(request,'home.html')

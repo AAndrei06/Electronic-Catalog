@@ -2,6 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 import uuid
 
+	
+class Mark(models.Model):
+	number = models.IntegerField(default=0)
+	month = models.CharField(max_length = 15,blank = False,editable = False)
+	day = models.IntegerField(default = 0)
+	present = models.BooleanField(default = False)
+
 class Student(models.Model):
 	grade = models.IntegerField(default = 0,blank = False,editable = True)
 	gpa = models.FloatField(default = 0,blank = False,editable = True)
@@ -12,13 +19,7 @@ class Student(models.Model):
 	student_id = models.UUIDField(default = uuid.uuid4(),blank = False,editable=True)
 	image = models.ImageField(upload_to = '',default = "user.png",blank = True, null = True)
 	user_student = models.OneToOneField(User,on_delete=models.CASCADE)
-	
-class Mark(models.Model):
-	number = models.IntegerField(default=0)
-	month = models.CharField(max_length = 15,blank = False,editable = False)
-	day = models.IntegerField(default = 0)
-	present = models.BooleanField(default = False)
-	student_obj = models.ForeignKey(Student,on_delete=models.CASCADE)
+	marks = models.ManyToManyField(Mark)
 
 class Article(models.Model):
 	title = models.CharField(max_length = 100,blank = False,editable = True,default = "Article")
