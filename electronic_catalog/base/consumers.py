@@ -1,6 +1,6 @@
 import json
 import base64
-from .models import Article, Classroom, Student
+from .models import Article, Classroom, Student, Mark
 from django.core.files.base import ContentFile
 from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import async_to_sync
@@ -37,6 +37,20 @@ def remove_student_from_classroom(student_id):
 	classroom.students.remove(student_obj)
 	student_obj.grade = 0
 	student_obj.save()
+
+@database_sync_to_async
+def add_mark_to_student(month, day, studentID, mark):
+	student = Student.objects.get(student_id = studentID)
+	markStd = None
+	present = False
+	if mark:
+		present = True
+	else:
+		present = False
+
+	markStd = Mark.objects.create(number = 0,month = month,day=day,present=present)
+
+	student.marks.add(markStd)
 
 class CatalogConsumer(AsyncWebsocketConsumer):
 
@@ -80,6 +94,14 @@ class CatalogConsumer(AsyncWebsocketConsumer):
 			await remove_student_from_classroom(text_data_json["ID"])
 			await self.channel_layer.group_send(self.room_group_name, {"type": "chat.message",
 																	   "message": message})
+		elif (message == "Add Mark"):
+			await add_mark_to_student(text_data_json["month"],text_data_json["day"],text_data_json["student_id"],text_data_json["mark"])
+			await self.channel_layer.group_send(self.room_group_name,{"type":"chat.message",
+																      "message":message,
+																	  "day":text_data_json["day"],
+																	  "month":text_data_json["month"],
+																	  "student_id":text_data_json["student_id"],
+																	  "mark":text_data_json["mark"]})
 		else:
 			await self.channel_layer.group_send(self.room_group_name, {"type": "chat.message",
 																	   "message": message})
@@ -97,5 +119,11 @@ class CatalogConsumer(AsyncWebsocketConsumer):
 												  "id":event["id"]}))
 		elif (message == "Student Add" or message == "Student Delete"):
 			await self.send(text_data=json.dumps({"message":message}))
+		elif (message == "Add Mark"):
+			await self.send(text_data = json.dumps({"message":message,
+													"day":event["day"],
+													"month":event["month"],
+													"student_id":event["student_id"],
+													"mark":event["mark"]}))
 		else:
 			await self.send(text_data=json.dumps({"message":message}))

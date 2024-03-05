@@ -32,6 +32,7 @@ let rmStdBool = false;
 let reportBool = false;
 let reportTable = document.getElementById("report-add-table");
 let reportBtn = document.getElementById("add-report");
+let addMarkBtnSubmit = document.getElementById("submit-mark-to-std");
 
 function showReportAdd(){
 	if (!reportBool){
@@ -42,6 +43,7 @@ function showReportAdd(){
 		reportBool = false;
 	}
 }
+
 
 reportBtn.onclick = showReportAdd;
 closeBTN5.onclick = showReportAdd;
@@ -68,7 +70,7 @@ addStudentBtn.onclick = () => {
 		addStd = false;
 	}
 }
-//settingsTable.style.display = "none";
+
 setOn.onclick = () => {
 	if (!setT){
 		settingsTable.style.display = "block";
@@ -105,27 +107,7 @@ closeBTN2.onclick = () => {
 
 
 let mainDiv = document.querySelector(".main-div-register");
-/*
-let tm = document.createElement("div");
-tm.classList.add("register-object");
-tm.innerHTML += '<div class = "name-of-object">Ianuarie</div>';
-for (let i = 0;i < 31;i++){
-	tm.innerHTML += `<div class = "mark-of-object"><p style="margin:4px">${i+1}</p></div>`;
-}
-mainDiv.appendChild(tm);
-
-for (let i = 0;i < 30;i++){
-	let tmp = document.createElement("div");
-	tmp.classList.add("register-object");
-	tmp.innerHTML += '<div class = "name-of-object">'+(i+1)+'. Andrei Arseni </div>';
-	for (let j = 0;j < 31;j++){
-		tmp.innerHTML += `<div class = "mark-of-object" id = "${i}" value = "${j}"><p style="margin:4px">10</p></div>`;
-	}
-	mainDiv.appendChild(tmp);
-}
-*/
-
-let marks = document.querySelectorAll(".mark-of-object");
+let marks = document.getElementsByName("mark-object-std");
 
 mainDiv.addEventListener("mouseout",() => {
 	for (let m of marks){
@@ -134,11 +116,9 @@ mainDiv.addEventListener("mouseout",() => {
 })
 
 for (let m of marks){
-	m.addEventListener("click",() => {
-		markPanel.style.display = "block";
-	})
 
 	m.addEventListener("mouseover",() => {
+
 		for (let x of marks){
 			if (x.getAttribute('id') == m.getAttribute('id') || x.getAttribute('value') == m.getAttribute('value')){
 				x.style.backgroundColor = "#4287f5";

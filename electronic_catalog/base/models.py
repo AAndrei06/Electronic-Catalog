@@ -16,10 +16,10 @@ class Student(models.Model):
 	email = models.EmailField(max_length = 100,blank = False,editable = True)
 	homework_to_do = models.IntegerField(default = 0,blank = False,editable = True)
 	homework_done = models.IntegerField(default = 0,blank = False,editable = True)
-	student_id = models.UUIDField(default = uuid.uuid4(),blank = False,editable=True)
+	student_id = models.CharField(max_length=64,blank = False,editable=True)
 	image = models.ImageField(upload_to = '',default = "user.png",blank = True, null = True)
 	user_student = models.OneToOneField(User,on_delete=models.CASCADE)
-	marks = models.ManyToManyField(Mark)
+	marks = models.ManyToManyField(Mark,blank=True,editable=True,null=True)
 
 class Article(models.Model):
 	title = models.CharField(max_length = 100,blank = False,editable = True,default = "Article")

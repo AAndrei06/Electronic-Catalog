@@ -6,6 +6,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from . import validate
 from django.contrib import auth
 from .models import Article, HomeWorkToDo, HomeWorkFiles, Student, Mark
+from django.utils.safestring import mark_safe
+import json
 
 class RegisterView(View):
 	def post(self, request):
@@ -14,12 +16,13 @@ class RegisterView(View):
 			email = request.POST.get('email')
 			password = request.POST.get('password')
 			password2 = request.POST.get('password2')
+			std_ID = request.POST.get("UUID")
 			responseText = validate.validate_input(name,email,password,password2)
 			if (responseText == 'valid' and not User.objects.filter(username=name).exists() and not User.objects.filter(email = email).exists()):
 				user = User.objects.create_user(username=name,email=email,password=password)
 				user.save()
 				
-				student_created = Student.objects.create(name=name,email=email,user_student = user)
+				student_created = Student.objects.create(name=name,email=email,user_student = user,student_id=std_ID)
 				userCreated = auth.authenticate(username=name, password=password)
 				
 				auth.login(request,user)
@@ -70,8 +73,9 @@ class HomeView(LoginRequiredMixin, View):
 			month = request.POST.get("number-month-students")
 			print(grade)
 			print(month)
+			all_students = Student.objects.filter(grade=grade)
 			context = {
-				'students':Student.objects.filter(grade=grade),
+				'students':zip(all_students,list(range(0,len(all_students)))),
 				"range":list(range(1,32)),
 				"month":month,
 				"grade":grade,

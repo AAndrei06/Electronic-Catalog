@@ -34,7 +34,6 @@ addReport.onclick = function(event){
 
 
 // HomeWork Create
-console.log("Here");
 $(document).ready(function(){
 	let addHomeworkForm = document.getElementById("add-home-form");
 	addHomeworkForm.addEventListener("submit",(event) => {
@@ -91,3 +90,33 @@ removeStd.addEventListener("click",() => {
 		'ID':studentID,
 	}))
 })
+
+// Add Mark
+
+let submitMarkBtn = document.getElementById("submit-mark-to-std");
+let monthToGo = "";
+let dayToGo = "";
+let student_id_mark = ""
+for (mark of marks){
+	mark.addEventListener("click",(event) => {
+		event.stopPropagation();
+		dayToGo = event.srcElement.getAttribute('value');
+		student_id_mark = event.srcElement.getAttribute('data');
+		monthToGo = document.getElementById("month-marks-obj").innerHTML;
+		markPanel.style.display = "block";
+	})
+}
+
+submitMarkBtn.onclick = function (){
+	console.log(dayToGo)
+	console.log(monthToGo)
+	console.log(student_id_mark)
+	console.log(document.querySelector('input[name="radio"]:checked').value)
+	web_socket.send(JSON.stringify({
+		"message":"Add Mark",
+		"mark":document.querySelector('input[name="radio"]:checked').value,
+		"day":dayToGo,
+		"month":monthToGo,
+		"student_id":student_id_mark
+	}));
+}

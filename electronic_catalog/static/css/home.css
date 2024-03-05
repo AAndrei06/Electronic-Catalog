@@ -230,6 +230,11 @@ main{
 	cursor: pointer;
 }
 
+.mark-of-object p{
+	pointer-events: none;
+	margin: 4px;
+}
+
 .mark-options{
 	width: 80%;
 	display: flex;

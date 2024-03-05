@@ -133,12 +133,12 @@
 					</div>
 					<br>
 					<div>
-						<input type="radio" name="radio" id = "not" value = "-1">
+						<input type="radio" name="radio" id = "not" checked value = "0">
 						<label for = "not">Not present</label>
 					</div>
 				</div>
 				<div class="btns-div-add-std">
-					<button class = "submit-btn-add-std">Submit</button>
+					<button id = "submit-mark-to-std" class = "submit-btn-add-std">Submit</button>
 				</div>
 			</div>
 
@@ -254,17 +254,17 @@
 			<div class = "main-div-register">
 				{% if students %}
 					<div class = "register-object">
-						<div class = "name-of-object">{{ month }}</div>
+						<div class = "name-of-object" id = "month-marks-obj">{{ month }}</div>
 						{% for number in range %}
-							<div class = "mark-of-object"><p style="margin:4px">{{ number }}</p></div>
+							<div class = "mark-of-object"><p>{{ number }}</p></div>
 						{% endfor %}
 					</div>
-					{% for student in students %}
-						<div class = "register-object">
+					{% for student, num in students %}
+						<div class = "register-object" name = "mark-square">
 							<div class = "name-of-object">{{ student.name }}</div>
 
 							{% for number in range %}
-								<div class = "mark-of-object" id = "" value = "{{ number }}"><p style="margin:4px">10</p></div>
+								<div name="mark-object-std" data = "{{ student.student_id }}" class = "mark-of-object" id = "{{ num }}" value = "{{ number }}"><p>10</p></div>
 							{% endfor %}
 						</div>
 					{% endfor %}
