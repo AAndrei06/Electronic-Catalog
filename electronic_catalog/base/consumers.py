@@ -8,7 +8,6 @@ from channels.db import database_sync_to_async
 
 @database_sync_to_async
 def create_report(title,desc,image):
-	print("Saved")
 	return Article.objects.create(title=title,description=desc,image=image)
 
 @database_sync_to_async
@@ -41,16 +40,23 @@ def remove_student_from_classroom(student_id):
 @database_sync_to_async
 def add_mark_to_student(month, day, studentID, mark):
 	student = Student.objects.get(student_id = studentID)
-	markStd = None
-	present = False
-	if mark:
-		present = True
+	if (int(mark) == 99999):
+		student.marks.filter(day = day, month = month).delete()
 	else:
+		markStd = None
 		present = False
+		if int(mark) > 0:
+			present = True
+		else:
+			present = False
 
-	markStd = Mark.objects.create(number = 0,month = month,day=day,present=present)
+		if (student.marks.filter(day = day, month = month).exists()):
+			student.marks.filter(day = day, month = month).delete()
+		
+		markStd = Mark.objects.create(number = mark,month = month,day=day,present=present)
 
-	student.marks.add(markStd)
+		student.marks.add(markStd)
+	
 
 class CatalogConsumer(AsyncWebsocketConsumer):
 
@@ -101,14 +107,14 @@ class CatalogConsumer(AsyncWebsocketConsumer):
 																	  "day":text_data_json["day"],
 																	  "month":text_data_json["month"],
 																	  "student_id":text_data_json["student_id"],
-																	  "mark":text_data_json["mark"]})
+																	  "mark":text_data_json["mark"],
+																	  "present":int(text_data_json["mark"]) > 0})
 		else:
 			await self.channel_layer.group_send(self.room_group_name, {"type": "chat.message",
 																	   "message": message})
 
 	async def chat_message(self, event):
 		message = event["message"]
-		print(event)
 		if (message == "Article Edit"):
 			await self.send(text_data=json.dumps({"message":message,
 												  "id":event["id"],
@@ -124,6 +130,7 @@ class CatalogConsumer(AsyncWebsocketConsumer):
 													"day":event["day"],
 													"month":event["month"],
 													"student_id":event["student_id"],
-													"mark":event["mark"]}))
+													"mark":event["mark"],
+													"present":int(event["mark"]) > 0}))
 		else:
 			await self.send(text_data=json.dumps({"message":message}))

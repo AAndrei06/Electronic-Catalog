@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . import validate
 from django.contrib import auth
-from .models import Article, HomeWorkToDo, HomeWorkFiles, Student, Mark
+from .models import Article, HomeWorkToDo, HomeWorkFiles, Student, Mark, HomeWorkToDo
 from django.utils.safestring import mark_safe
 import json
 
@@ -67,19 +67,25 @@ class HomeView(LoginRequiredMixin, View):
 			print(grade)
 			new_home = HomeWorkToDo.objects.create(title = title, description = description, grade = grade)
 			for file in files:
-				HomeWorkFiles.objects.create(files = file,homework = new_home).save()
+				new_home.homework_files.add(HomeWorkFiles.objects.create(files = file))
+			new_home.save()
 		else:
 			grade = request.POST.get("number-class-students")
 			month = request.POST.get("number-month-students")
-			print(grade)
-			print(month)
 			all_students = Student.objects.filter(grade=grade)
+			all_marks = []
+			for std in all_students:
+				for mark in std.marks.all():
+					all_marks.append([mark.day,mark.month,mark.present,mark.number,std.student_id])
+
 			context = {
 				'students':zip(all_students,list(range(0,len(all_students)))),
 				"range":list(range(1,32)),
 				"month":month,
 				"grade":grade,
-				"range2":len(list(Student.objects.filter(grade=grade)))
+				"range2":len(list(Student.objects.filter(grade=grade))),
+				"marks":json.dumps(all_marks),
+				"homeworks": HomeWorkToDo.objects.filter(grade=grade)
 			}
 
 		return render(request,'home.html',context)

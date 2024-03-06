@@ -8,7 +8,26 @@ console.log('ws://'+window.location.host+'/');
 
 web_socket.onmessage = function(event){
 	const data = JSON.parse(event.data);
-	console.log(data);
+	if (data.message == "Add Mark"){
+		console.log(data)
+		let markRow = document.querySelectorAll(`[title="${data.student_id}"]`);
+		if (data.month == document.getElementById("month-marks-obj").innerHTML){
+			for (col of markRow){
+				if (col.classList.contains(data.day)){
+					if (data.mark == "99999"){
+						col.innerHTML = `<p></p>`;
+						continue;
+					}
+					if (data.present == true){
+						col.innerHTML = `<p>${data.mark}</p>`;
+					}
+					else{
+						col.innerHTML = `<p>Ab</p>`;
+					}
+				}
+			}
+		}
+	}
 }
 
 web_socket.onclose = function(event){
@@ -101,7 +120,7 @@ for (mark of marks){
 	mark.addEventListener("click",(event) => {
 		event.stopPropagation();
 		dayToGo = event.srcElement.getAttribute('value');
-		student_id_mark = event.srcElement.getAttribute('data');
+		student_id_mark = event.srcElement.getAttribute('title');
 		monthToGo = document.getElementById("month-marks-obj").innerHTML;
 		markPanel.style.display = "block";
 	})
@@ -112,11 +131,13 @@ submitMarkBtn.onclick = function (){
 	console.log(monthToGo)
 	console.log(student_id_mark)
 	console.log(document.querySelector('input[name="radio"]:checked').value)
+
 	web_socket.send(JSON.stringify({
 		"message":"Add Mark",
 		"mark":document.querySelector('input[name="radio"]:checked').value,
 		"day":dayToGo,
 		"month":monthToGo,
 		"student_id":student_id_mark
-	}));
+	}))
+	document.getElementById("not").checked = true;
 }
