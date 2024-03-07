@@ -70,16 +70,14 @@ $(document).ready(function(){
 			data.append("files",files[i]);
 		}
 		data.append("csrfmiddlewaretoken",csrf);
+		data.append("purpose","add_homework")
 		$.ajax({
 			method:'POST',
 			url:'',
 			processData:false,
 			contentType:false,
 			mimeType:'multipart/form-data',
-			data:data,
-			success: function (res){
-				console.log(res);
-			}
+			data:data
 		});
 	})
 })
@@ -141,3 +139,32 @@ submitMarkBtn.onclick = function (){
 	}))
 	document.getElementById("not").checked = true;
 }
+
+// Add Homework
+
+$(document).ready(function(){
+	let submitHomeworkForms = document.querySelectorAll("#form-submit-homework");
+	for (form of submitHomeworkForms){
+		form.addEventListener("submit",(event) => {
+			event.preventDefault();
+			let thatForm = event.srcElement;
+			console.log(thatForm)
+			let filesToUpload = document.getElementsByName(thatForm.getAttribute('value')+"-file-for-homework")[0].files;
+			let data = new FormData();
+			console.log(filesToUpload)
+			for (let i = 0;i < filesToUpload.length;i++){
+				data.append("files",filesToUpload[i]);
+			}
+			data.append("csrfmiddlewaretoken",document.getElementsByName("csrfmiddlewaretoken")[0].value);
+			data.append("purpose","send_homework_to_teacher");
+			$.ajax({
+				method:'POST',
+				url:'',
+				processData:false,
+				contentType:false,
+				mimeType:'multipart/form-data',
+				data:data
+				});
+		});
+	}
+})

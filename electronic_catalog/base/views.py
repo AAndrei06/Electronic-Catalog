@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . import validate
 from django.contrib import auth
-from .models import Article, HomeWorkToDo, HomeWorkFiles, Student, Mark, HomeWorkToDo
+from .models import Article, HomeWorkToDo, HomeWorkFiles, Student, Mark, HomeWorkToDoFiles, Classroom, HomeworkToReceive
 from django.utils.safestring import mark_safe
 import json
 
@@ -58,17 +58,31 @@ class HomeView(LoginRequiredMixin, View):
 	def post(self, request):
 		context = {}
 		if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-			title = request.POST.get("title")
-			description = request.POST.get("description")
-			grade = request.POST.get("grade")
-			files = request.FILES.getlist("files")
-			print(title)
-			print(description)
-			print(grade)
-			new_home = HomeWorkToDo.objects.create(title = title, description = description, grade = grade)
-			for file in files:
-				new_home.homework_files.add(HomeWorkFiles.objects.create(files = file))
-			new_home.save()
+			if request.POST.get("purpose") == "add_homework":
+				title = request.POST.get("title")
+				description = request.POST.get("description")
+				grade = request.POST.get("grade")
+				files = request.FILES.getlist("files")
+				new_home = HomeWorkToDo.objects.create(title = title, description = description, grade = grade)
+				for file in files:
+					new_home.homework_files.add(HomeWorkFiles.objects.create(files = file))
+				new_home.save()
+				current_classroom = Classroom.objects.get(number = grade)
+				for student in current_classroom.students.all():
+					student.homework_to_do += 1
+					student.save()
+			elif request.POST.get("purpose") == "send_homework_to_teacher":
+				files = request.FILES.getlist("files")
+				current_std = Student.objects.get(user_student = request.user)
+				current_std.homework_done += 1
+				homeworkToRecv = HomeworkToReceive.objects.create(student_obj = request.user.student)
+				for file in files:
+					homeworkToRecv.hm_files.add(HomeWorkToDoFiles.objects.create(files = file))
+					print(file)
+				if current_std.homework_to_do > 0:
+					current_std.homework_to_do -= 1
+				current_std.save()
+				homeworkToRecv.save()
 		else:
 			grade = request.POST.get("number-class-students")
 			month = request.POST.get("number-month-students")
@@ -110,15 +124,40 @@ class ArticlesView(LoginRequiredMixin, View):
 class ProfileView(LoginRequiredMixin, View):
 	login_url = "/login/"
 	redirect_field_name = "profile/"
-	def get(self, request):
+	def post(self, request):
+		file = request.FILES.get("file-input-profile")
+		current_student = Student.objects.get(user_student = request.user)
+		current_student.image = file
+		current_student.save()
 		try:
+			gpa = 0
+			cnt = 0
+			current_std = Student.objects.get(user_student = request.user)
+			for mark in current_std.marks.all():
+				gpa += int(mark.number)
+				cnt += 1
+
 			context = {
 				"student":Student.objects.get(user_student = request.user),
+				"gpa":float(gpa/cnt)
 			}
 		except:
 			context = {}
 		return render(request,'profile.html',context=context)
 
+	def get(self, request):
+		try:
+			gpa = 0
+			cnt = 0
+			current_std = Student.objects.get(user_student = request.user)
+			for mark in current_std.marks.all():
+				gpa += int(mark.number)
+				cnt += 1
 
-def profile(request):
-	return render(request,'profile.html')
+			context = {
+				"student":Student.objects.get(user_student = request.user),
+				"gpa":float(gpa/cnt)
+			}
+		except:
+			context = {}
+		return render(request,'profile.html',context=context)

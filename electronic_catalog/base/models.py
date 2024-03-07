@@ -31,10 +31,17 @@ class Article(models.Model):
 class HomeWorkFiles(models.Model):
 	files = models.FileField(upload_to='')
 
+class HomeWorkToDoFiles(models.Model):
+	files = models.FileField(upload_to = '')
+
+class HomeworkToReceive(models.Model):
+	student_obj = models.ForeignKey(Student,on_delete = models.CASCADE)
+	hm_files = models.ManyToManyField(HomeWorkToDoFiles,blank = True,null = True)
+
 class HomeWorkToDo(models.Model):
 	title = models.CharField(max_length = 100,blank = False, default="Homework")
 	description = models.CharField(max_length = 1000,blank = False, default="Description")
-	received_homework = models.ManyToManyField(Student,blank = True)
+	received_homework = models.ManyToManyField(HomeworkToReceive,blank = True)
 	homework_id = models.UUIDField(default = uuid.uuid4(),blank = False,editable=False)
 	grade = models.IntegerField(default = 0,blank = False,editable=False)
 	homework_files = models.ManyToManyField(HomeWorkFiles,blank = True,null = True)

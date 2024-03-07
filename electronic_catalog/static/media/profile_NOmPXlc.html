@@ -26,28 +26,25 @@
 		</header>
 		<main>
 			{% if student %}
-			<form method="POST" enctype="multipart/form-data">
-				{% csrf_token %}
-				<div class = "info-personal">
-					<div class = "profile-photo">
-						<img src="{{ student.image.url }}">
-						<input type="file" name="file-input-profile">
-					</div>
-					<div class = "profile-info">
-						<p><b>Class:</b> {{ student.grade }}</p>
-						<p><b>Current GPA:</b> {{ gpa }}</p>
-						<p><b>Name:</b> {{ student.name }}</p>
-						<p><b>Email:</b> {{ student.email }}</p>
-						<p><b>Homework to do:</b> {{ student.homework_to_do }}</p>
-						<p><b>Homework done:</b> {{ student.homework_done }}</p>
-						<p><b>ID:</b> {{ student.student_id }}</p>
-					</div>
+			<div class = "info-personal">
+				<div class = "profile-photo">
+					<img src="{{ student.image.url }}">
+					<input type="file" name="">
 				</div>
-				{% endif %}
-				<div class = "btn-space">
-					<button type="submit" class = "submit-info-btn">Save Image</button>
+				<div class = "profile-info">
+					<p><b>Class:</b> {{ student.grade }}</p>
+					<p><b>Current GPA:</b> {{ student.gpa }}</p>
+					<p><b>Name:</b> {{ student.name }}</p>
+					<p><b>Email:</b> {{ student.email }}</p>
+					<p><b>Homework to do:</b> {{ student.homework_to_do }}</p>
+					<p><b>Homework done:</b> {{ student.homework_done }}</p>
+					<p><b>ID:</b> {{ student.student_id }}</p>
 				</div>
-			</form>	
+			</div>
+			{% endif %}
+			<div class = "btn-space">
+				<button class = "submit-info-btn">Save Image</button>
+			</div>
 			<div class = "charts">
 				<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
 				<canvas id="secondChart" style="height: 270px;max-height: 270px; width: 270px;max-width:270px"></canvas>
