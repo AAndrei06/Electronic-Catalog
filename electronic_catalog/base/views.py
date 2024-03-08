@@ -125,39 +125,49 @@ class ProfileView(LoginRequiredMixin, View):
 	login_url = "/login/"
 	redirect_field_name = "profile/"
 	def post(self, request):
-		file = request.FILES.get("file-input-profile")
-		current_student = Student.objects.get(user_student = request.user)
-		current_student.image = file
-		current_student.save()
-		try:
-			gpa = 0
-			cnt = 0
-			current_std = Student.objects.get(user_student = request.user)
-			for mark in current_std.marks.all():
-				gpa += int(mark.number)
-				cnt += 1
+		if (not request.user.is_staff):
+			file = request.FILES.get("file-input-profile")
+			current_student = Student.objects.get(user_student = request.user)
+			current_student.image = file
+			current_student.save()
+			try:
+				gpa = 0
+				cnt = 0
+				current_std = Student.objects.get(user_student = request.user)
+				marks_list = []
+				for mark in current_std.marks.all():
+					gpa += int(mark.number)
+					cnt += 1
+					marks_list.append([mark.number, mark.month])
 
-			context = {
-				"student":Student.objects.get(user_student = request.user),
-				"gpa":float(gpa/cnt)
-			}
-		except:
-			context = {}
-		return render(request,'profile.html',context=context)
+				context = {
+					"student":Student.objects.get(user_student = request.user),
+					"gpa":float(gpa/cnt),
+					"all_marks":json.dumps(marks_list)
+				}
+			except:
+				context = {}
+			return render(request,'profile.html',context=context)
+		return render(request,'profile.html')
 
 	def get(self, request):
-		try:
-			gpa = 0
-			cnt = 0
-			current_std = Student.objects.get(user_student = request.user)
-			for mark in current_std.marks.all():
-				gpa += int(mark.number)
-				cnt += 1
+		if (not request.user.is_staff):
+			try:
+				gpa = 0
+				cnt = 0
+				current_std = Student.objects.get(user_student = request.user)
+				marks_list = []
+				for mark in current_std.marks.all():
+					gpa += int(mark.number)
+					cnt += 1
+					marks_list.append([mark.number, mark.month])
 
-			context = {
-				"student":Student.objects.get(user_student = request.user),
-				"gpa":float(gpa/cnt)
-			}
-		except:
-			context = {}
-		return render(request,'profile.html',context=context)
+				context = {
+					"student":Student.objects.get(user_student = request.user),
+					"gpa":float(gpa/cnt),
+					"all_marks":json.dumps(marks_list)
+				}
+			except:
+				context = {}
+			return render(request,'profile.html',context=context)
+		return render(request,'profile.html')

@@ -273,12 +273,12 @@
 				</div>
 				<script type="text/javascript">
 					var student_marks = JSON.parse("{{marks|escapejs}}");
+					current_month = document.getElementById("month-marks-obj").innerHTML
 					console.log(student_marks)
-					
 					for (mark of student_marks){
 						let markRow = document.querySelectorAll(`[title="${mark[4]}"]`);
 						for (col of markRow){
-							if (col.classList.contains(mark[0])){
+							if (col.classList.contains(mark[0]) && mark[1] == current_month){
 								if (mark[2] == true)
 									col.innerHTML = `<p>${mark[3]}</p>`;
 								else

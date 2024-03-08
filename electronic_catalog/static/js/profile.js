@@ -1,5 +1,33 @@
-const xValues = [50,60,70,80,90,100,110,120,130,140,150];
-const yValues = [7,8,8,9,9,9,10,11,14,14,15];
+console.log(data_marks)
+
+let xValues = [1,2,3,4,5,6,7,8,9,10,11,12];
+let counts = [0,0,0,0,0,0,0,0,0,0,0,0];
+let yValues = [0,0,0,0,0,0,0,0,0,0,0,0];
+const months = {
+  "january":1,
+  "february":2,
+  "march":3,
+  "april":4,
+  "may":5,
+  "june":6,
+  "july":7,
+  "august":8,
+  "september":9,
+  "octomber":10,
+  "november":11,
+  "december":12,
+}
+
+for (mark of data_marks){
+  yValues[months[mark[1]]-1] += mark[0]
+  if (mark[0] != 0){
+    counts[months[mark[1]]-1] += 1;
+  }
+}
+
+for (let i = 0;i < yValues.length;i++){
+    yValues[i] = yValues[i]/counts[i];
+}
 
 new Chart("myChart", {
   type: "line",
@@ -17,7 +45,7 @@ new Chart("myChart", {
     title: {display:true,text:"Evolution of the GPA every month"},
     legend: {display:false},
     scales: {
-      yAxes: [{ticks: {min: 6, max:16}}],
+      yAxes: [{ticks: {min: 0, max:10}}],
     }
   }
 });

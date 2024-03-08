@@ -35,7 +35,7 @@
 					</div>
 					<div class = "profile-info">
 						<p><b>Class:</b> {{ student.grade }}</p>
-						<p><b>Current GPA:</b> {{ gpa }}</p>
+						<p><b>Current GPA:</b> {{ gpa|floatformat:2 }}</p>
 						<p><b>Name:</b> {{ student.name }}</p>
 						<p><b>Email:</b> {{ student.email }}</p>
 						<p><b>Homework to do:</b> {{ student.homework_to_do }}</p>
@@ -48,6 +48,9 @@
 					<button type="submit" class = "submit-info-btn">Save Image</button>
 				</div>
 			</form>	
+			<script type="text/javascript">
+				var data_marks = JSON.parse("{{ all_marks|escapejs }}");
+			</script>
 			<div class = "charts">
 				<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
 				<canvas id="secondChart" style="height: 270px;max-height: 270px; width: 270px;max-width:270px"></canvas>
