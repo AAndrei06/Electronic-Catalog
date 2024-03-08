@@ -30,6 +30,7 @@ editBtns.forEach((edit) => {
 			'id':article_id,
 			'title':new_title,
 			'description':new_desc,
+			
 		}))
 	}
 })

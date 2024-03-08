@@ -405,6 +405,14 @@ main{
 	display: flex;
 	flex-direction: column;
 	gap:5px;
+	padding: 0px;
+	margin-right: 10px;
+	overflow-wrap: break-word;
+}
+
+.file-content ul{
+	padding: 0px;
+	margin-left: 20px;
 }
 
 .file-content a{
@@ -442,6 +450,10 @@ main{
 
 .home-content{
 	margin:10px;
+}
+
+.logo-pic{
+	margin-left: 10px;
 }
 
 .upload-home{

@@ -7,8 +7,8 @@ from asgiref.sync import async_to_sync
 from channels.db import database_sync_to_async
 
 @database_sync_to_async
-def create_report(title,desc,image):
-	return Article.objects.create(title=title,description=desc,image=image)
+def create_report(title,desc,image,uuid):
+	return Article.objects.create(title=title,description=desc,image=image,article_id = uuid)
 
 @database_sync_to_async
 def edit_report(title,desc,article_id):
@@ -75,10 +75,11 @@ class CatalogConsumer(AsyncWebsocketConsumer):
 			title = text_data_json["title"]
 			desc = text_data_json["description"]
 			image = text_data_json["image"]
+			uuid = text_data_json["uuid"]
 			format, imgstr = image.split(';base64,') 
 			ext = format.split('/')[-1] 
 			data = ContentFile(base64.b64decode(imgstr), name='temp.' + ext)
-			await create_report(title,desc,data)
+			await create_report(title,desc,data,uuid)
 
 		elif (message == "Article Edit"):
 			await edit_report(text_data_json["title"],text_data_json["description"],text_data_json["id"])

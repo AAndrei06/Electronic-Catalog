@@ -6,6 +6,18 @@ let imageReport = document.getElementById("report-file-input");
 const web_socket = new WebSocket('ws://'+window.location.host+'/');
 console.log('ws://'+window.location.host+'/');
 
+function makeid(length) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
+}
+
 web_socket.onmessage = function(event){
 	const data = JSON.parse(event.data);
 	if (data.message == "Add Mark"){
@@ -44,7 +56,8 @@ addReport.onclick = function(event){
 				'message':"Article Create",
 				'title':reportTitle.value,
 				'description':reportDescription.value,
-				'image':reader.result
+				'image':reader.result,
+				"uuid":makeid(32)
 			}))
 		})
 		reader.readAsDataURL(file); 
@@ -149,6 +162,7 @@ $(document).ready(function(){
 			event.preventDefault();
 			let thatForm = event.srcElement;
 			console.log(thatForm)
+			console.log("Cls " + thatForm.getAttribute("class"));
 			let filesToUpload = document.getElementsByName(thatForm.getAttribute('value')+"-file-for-homework")[0].files;
 			let data = new FormData();
 			console.log(filesToUpload)
@@ -157,6 +171,8 @@ $(document).ready(function(){
 			}
 			data.append("csrfmiddlewaretoken",document.getElementsByName("csrfmiddlewaretoken")[0].value);
 			data.append("purpose","send_homework_to_teacher");
+			data.append("pk",thatForm.getAttribute("class"));
+			console.log("Cls " + thatForm.getAttribute("class"));
 			$.ajax({
 				method:'POST',
 				url:'',

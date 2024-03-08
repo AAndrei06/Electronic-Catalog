@@ -26,7 +26,7 @@ class Article(models.Model):
 	description = models.TextField(blank = False)
 	image = models.ImageField(upload_to = '',default = "user.png",blank = True, null = True)
 	date_posted = models.DateField(auto_now_add = True)
-	article_id = models.UUIDField(default = uuid.uuid4(),blank = False,editable=False)
+	article_id = models.CharField(blank = False,editable=False)
 
 class HomeWorkFiles(models.Model):
 	files = models.FileField(upload_to='')
@@ -45,6 +45,7 @@ class HomeWorkToDo(models.Model):
 	homework_id = models.UUIDField(default = uuid.uuid4(),blank = False,editable=False)
 	grade = models.IntegerField(default = 0,blank = False,editable=False)
 	homework_files = models.ManyToManyField(HomeWorkFiles,blank = True,null = True)
+	students_that_send = models.ManyToManyField(Student,blank = True,null = True)
 
 class Classroom(models.Model):
 	number = models.IntegerField(default = 0,blank = False)

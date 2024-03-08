@@ -73,12 +73,15 @@ class HomeView(LoginRequiredMixin, View):
 					student.save()
 			elif request.POST.get("purpose") == "send_homework_to_teacher":
 				files = request.FILES.getlist("files")
+				pk = request.POST.get("pk")
 				current_std = Student.objects.get(user_student = request.user)
 				current_std.homework_done += 1
+				homeworkDone = HomeWorkToDo.objects.get(id = pk)
+				homeworkDone.students_that_send.add(request.user.student)
+				homeworkDone.save()
 				homeworkToRecv = HomeworkToReceive.objects.create(student_obj = request.user.student)
 				for file in files:
 					homeworkToRecv.hm_files.add(HomeWorkToDoFiles.objects.create(files = file))
-					print(file)
 				if current_std.homework_to_do > 0:
 					current_std.homework_to_do -= 1
 				current_std.save()
@@ -86,6 +89,14 @@ class HomeView(LoginRequiredMixin, View):
 		else:
 			grade = request.POST.get("number-class-students")
 			month = request.POST.get("number-month-students")
+			if not request.user.is_staff:
+				grade = request.user.student.grade
+			elif grade == "":
+				grade = "1"
+
+			if month == "":
+				month = "january"
+
 			all_students = Student.objects.filter(grade=grade)
 			all_marks = []
 			for std in all_students:
@@ -105,7 +116,26 @@ class HomeView(LoginRequiredMixin, View):
 		return render(request,'home.html',context)
 
 	def get(self, request):
-		return render(request,'home.html')
+		grade = "1"
+		month = "january"
+		if not request.user.is_staff:
+			grade = request.user.student.grade
+		all_students = Student.objects.filter(grade=grade)
+		all_marks = []
+		for std in all_students:
+			for mark in std.marks.all():
+				all_marks.append([mark.day,mark.month,mark.present,mark.number,std.student_id])
+
+		context = {
+			'students':zip(all_students,list(range(0,len(all_students)))),
+			"range":list(range(1,32)),
+			"month":month,
+			"grade":grade,
+			"range2":len(list(Student.objects.filter(grade=grade))),
+			"marks":json.dumps(all_marks),
+			"homeworks": HomeWorkToDo.objects.filter(grade=grade)
+		}
+		return render(request,'home.html',context=context)
 
 def logout_view(request):
 	auth.logout(request)
@@ -151,7 +181,7 @@ class ProfileView(LoginRequiredMixin, View):
 		return render(request,'profile.html')
 
 	def get(self, request):
-		if (not request.user.is_staff):
+		if not request.user.is_staff:
 			try:
 				gpa = 0
 				cnt = 0
@@ -162,6 +192,8 @@ class ProfileView(LoginRequiredMixin, View):
 					cnt += 1
 					marks_list.append([mark.number, mark.month])
 
+				if (cnt == 0):
+					cnt = 1
 				context = {
 					"student":Student.objects.get(user_student = request.user),
 					"gpa":float(gpa/cnt),
@@ -169,5 +201,11 @@ class ProfileView(LoginRequiredMixin, View):
 				}
 			except:
 				context = {}
+		
 			return render(request,'profile.html',context=context)
-		return render(request,'profile.html')
+		else:
+			context = {
+				"homeworks":HomeworkToReceive.objects.all()
+			}
+			return render(request,'profile.html',context=context)
+		return render(request,'profile.html',context)
