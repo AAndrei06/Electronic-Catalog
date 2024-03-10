@@ -24,9 +24,9 @@ class Student(models.Model):
 class Article(models.Model):
 	title = models.CharField(max_length = 100,blank = False,default = "Article")
 	description = models.TextField(blank = False)
-	image = models.ImageField(upload_to = '',default = "user.png",blank = True, null = True)
+	image = models.ImageField(upload_to = '',default = "user.png")
 	date_posted = models.DateField(auto_now_add = True)
-	article_id = models.CharField(blank = False,editable=False)
+	article_id = models.CharField(blank = False,editable=True)
 
 class HomeWorkFiles(models.Model):
 	files = models.FileField(upload_to='')
