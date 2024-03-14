@@ -8,8 +8,7 @@ from django.contrib import auth
 from .models import Article, HomeWorkToDo, HomeWorkFiles, Student, Mark, HomeWorkToDoFiles, Classroom, HomeworkToReceive
 from django.utils.safestring import mark_safe
 import json
-
-from .tasks import add
+from .tasks import create_homework, send_homework
 
 class RegisterView(View):
 	def post(self, request):
@@ -65,29 +64,12 @@ class HomeView(LoginRequiredMixin, View):
 				description = request.POST.get("description")
 				grade = request.POST.get("grade")
 				files = request.FILES.getlist("files")
-				new_home = HomeWorkToDo.objects.create(title = title, description = description, grade = grade)
-				for file in files:
-					new_home.homework_files.add(HomeWorkFiles.objects.create(files = file))
-				new_home.save()
-				current_classroom = Classroom.objects.get(number = grade)
-				for student in current_classroom.students.all():
-					student.homework_to_do += 1
-					student.save()
+				create_homework.delay(title, description, grade, files)
 			elif request.POST.get("purpose") == "send_homework_to_teacher":
 				files = request.FILES.getlist("files")
 				pk = request.POST.get("pk")
-				current_std = Student.objects.get(user_student = request.user)
-				current_std.homework_done += 1
-				homeworkDone = HomeWorkToDo.objects.get(id = pk)
-				homeworkDone.students_that_send.add(request.user.student)
-				homeworkDone.save()
-				homeworkToRecv = HomeworkToReceive.objects.create(student_obj = request.user.student)
-				for file in files:
-					homeworkToRecv.hm_files.add(HomeWorkToDoFiles.objects.create(files = file))
-				if current_std.homework_to_do > 0:
-					current_std.homework_to_do -= 1
-				current_std.save()
-				homeworkToRecv.save()
+				user = request.user
+				send_homework.delay(files, pk, user)
 		else:
 
 			grade = request.POST.get("number-class-students")
@@ -119,7 +101,6 @@ class HomeView(LoginRequiredMixin, View):
 		return render(request,'home.html',context)
 
 	def get(self, request):
-		add.delay()
 		grade = "1"
 		month = "january"
 		if not request.user.is_staff:
@@ -161,17 +142,20 @@ class ProfileView(LoginRequiredMixin, View):
 	def post(self, request):
 		if (not request.user.is_staff):
 			file = request.FILES.get("file-input-profile")
-			current_student = Student.objects.get(user_student = request.user)
-			current_student.image = file
-			current_student.save()
+			if file is not None:
+				current_student = Student.objects.get(user_student = request.user)
+				current_student.image = file
+				current_student.save()
+
 			try:
 				gpa = 0
 				cnt = 0
 				current_std = Student.objects.get(user_student = request.user)
 				marks_list = []
 				for mark in current_std.marks.all():
-					gpa += int(mark.number)
-					cnt += 1
+					if int(mark.number) != 0:
+						gpa += int(mark.number)
+						cnt += 1
 					marks_list.append([mark.number, mark.month])
 
 				context = {
@@ -192,8 +176,9 @@ class ProfileView(LoginRequiredMixin, View):
 				current_std = Student.objects.get(user_student = request.user)
 				marks_list = []
 				for mark in current_std.marks.all():
-					gpa += int(mark.number)
-					cnt += 1
+					if int(mark.number) != 0:
+						gpa += int(mark.number)
+						cnt += 1
 					marks_list.append([mark.number, mark.month])
 
 				if (cnt == 0):
