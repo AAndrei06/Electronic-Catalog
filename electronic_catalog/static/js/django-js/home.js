@@ -59,8 +59,6 @@ addReport.onclick = function(event){
 				'image':reader.result,
 				"uuid":makeid(32)
 			}))
-			reportTitle.value = "";
-			reportDescription.value = "";
 		})
 		reader.readAsDataURL(file); 
 	}
@@ -86,9 +84,6 @@ $(document).ready(function(){
 		}
 		data.append("csrfmiddlewaretoken",csrf);
 		data.append("purpose","add_homework")
-		title = "";
-		description = "";
-		files.value = null;
 		$.ajax({
 			method:'POST',
 			url:'',
@@ -112,7 +107,6 @@ addStudent.addEventListener("click",() => {
 		'ID':studentID,
 		'classroom':classOfStudent
 	}))
-	studentID = "";
 })
 
 // Remove Student
@@ -125,7 +119,6 @@ removeStd.addEventListener("click",() => {
 		'message':"Student Remove",
 		'ID':studentID,
 	}))
-	studentID = "";
 })
 
 // Add Mark
