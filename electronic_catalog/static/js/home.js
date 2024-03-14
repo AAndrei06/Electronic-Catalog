@@ -34,7 +34,6 @@ let reportTable = document.getElementById("report-add-table");
 let reportBtn = document.getElementById("add-report");
 let addMarkBtnSubmit = document.getElementById("submit-mark-to-std");
 
-
 function showReportAdd(){
 	if (!reportBool){
 		reportTable.style.display = "block";

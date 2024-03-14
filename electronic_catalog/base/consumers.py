@@ -5,7 +5,6 @@ from django.core.files.base import ContentFile
 from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import async_to_sync
 from channels.db import database_sync_to_async
-from .tasks import student_to_class, rm_student_from_class, add_mark
 
 @database_sync_to_async
 def create_report(title,desc,image,uuid):
@@ -24,15 +23,39 @@ def delete_report(article_id):
 
 @database_sync_to_async
 def add_student_to_classroom(student_id, classroom):
-	student_to_class.delay(student_id, classroom)
+	class_of_std = Classroom.objects.get(number = classroom)
+	student_obj = Student.objects.get(student_id=student_id)
+	student_obj.grade = classroom
+	student_obj.save()
+	class_of_std.students.add(student_obj)
 
 @database_sync_to_async
 def remove_student_from_classroom(student_id):
-	rm_student_from_class.delay(student_id)
+	student_obj = Student.objects.get(student_id=student_id)
+	classroom = Classroom.objects.get(number = student_obj.grade)
+	classroom.students.remove(student_obj)
+	student_obj.grade = 0
+	student_obj.save()
 
 @database_sync_to_async
 def add_mark_to_student(month, day, studentID, mark):
-	add_mark.delay(month, day, studentID, mark)
+	student = Student.objects.get(student_id = studentID)
+	if (int(mark) == 99999):
+		student.marks.filter(day = day, month = month).delete()
+	else:
+		markStd = None
+		present = False
+		if int(mark) > 0:
+			present = True
+		else:
+			present = False
+
+		if (student.marks.filter(day = day, month = month).exists()):
+			student.marks.filter(day = day, month = month).delete()
+		
+		markStd = Mark.objects.create(number = mark,month = month,day=day,present=present)
+
+		student.marks.add(markStd)
 	
 
 class CatalogConsumer(AsyncWebsocketConsumer):
