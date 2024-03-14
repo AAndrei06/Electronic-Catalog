@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+		<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+		<title>Profile</title>
+	</head>
+	<body>
+		<header>
+			<div class = "banner">
+				<div class = "logo-pic">
+					<img height="85" src="{% static 'images/back.png' %}">
+				</div>
+				
+				<div class = "profile-pic">
+					<a href="{% url 'home-page' %}">Home</a>
+				</div>
+			</div>
+			{% if not student %}
+				<style type="text/css">
+					main{
+						border: none;
+					}
+				</style>
+			{% endif %}
+		</header>
+		<main>
+
+			{% if student %}
+				<form method="POST" enctype="multipart/form-data">
+					{% csrf_token %}
+					<div class = "info-personal">
+						<div class = "profile-photo">
+							<img src="{{ student.image.url }}">
+							<input type="file" name="file-input-profile">
+						</div>
+						<div class = "profile-info">
+							<p><b>Class:</b> {{ student.grade }}</p>
+							<p><b>Current GPA:</b> {{ gpa|floatformat:2 }}</p>
+							<p><b>Name:</b> {{ student.name }}</p>
+							<p><b>Email:</b> {{ student.email }}</p>
+							<p><b>Homework to do:</b> {{ student.homework_to_do }}</p>
+							<p><b>Homework done:</b> {{ student.homework_done }}</p>
+							<p><b>ID:</b> {{ student.student_id }}</p>
+						</div>
+					</div>
+					
+					<div class = "btn-space">
+						<button type="submit" class = "submit-info-btn">Save Image</button>
+					</div>
+				</form>
+				<script type="text/javascript">
+					var data_marks = JSON.parse("{{ all_marks|escapejs }}");
+				</script>
+				<div class = "charts">
+					<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+					<canvas id="secondChart" style="height: 270px;max-height: 270px; width: 270px;max-width:270px"></canvas>
+				</div>
+			{% else %}
+				<div class="homework-for-students">
+					{% for homework in homeworks %}
+						<div class = "homework-obj">
+							<div class = "home-title">
+								<h3>From {{ homework.student_obj.name }}</h3>
+							</div>
+							<div class = "home-content file-content">
+								<h3>Homework</h3>
+								<ul>
+									{% for file in homework.hm_files.all %}
+										<li><a href="{{ file.files.url }}">{{ file.files }}</a></li>
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			{% endif %}
+		</main>
+	</body>
+	<script src="https://kit.fontawesome.com/8383e75d7d.js" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="{% static 'js/profile.js' %}"></script>
+</html>

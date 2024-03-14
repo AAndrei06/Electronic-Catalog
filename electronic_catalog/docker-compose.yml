@@ -1,0 +1,68 @@
+version: '3.9'
+
+services:
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+  rabbitmq:
+    image: rabbitmq:management
+    restart: always
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+  flower:
+    image: mher/flower
+    restart: always
+    ports:
+      - 5555:5555
+    environment:
+      - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672//
+
+  db:
+    container_name: postgresql_db
+    image: postgres
+    restart: always
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: test_db
+    ports:
+      - "5432:5432"
+
+    networks:
+      app_net:
+        ipv4_address: 192.168.0.2
+
+  pgadmin:
+    container_name: pgadmin4
+    image: dpage/pgadmin4
+    restart: always
+    user: "${UID}:${GID}"
+
+    volumes:
+      - ./data/pgadmin-data:/var/lib/pgadmin
+
+    environment:
+      PGADMIN_DEFAULT_EMAIL: root@root.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+
+    networks:
+      app_net:
+        ipv4_address: 192.168.0.3
+
+networks:
+  app_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.0.0/24"
+          gateway: 192.168.0.1

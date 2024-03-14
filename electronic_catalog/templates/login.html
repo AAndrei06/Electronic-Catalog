@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel = "stylesheet" type="text/css" href="{% static 'css/sign_up.css' %}">
+	<title>Login</title>
+</head>
+<body style="background: url('{% static 'images/book.jpg' %}');">
+	<header>
+		<div class = "banner">
+			<div>
+				<img src="{% static 'images/back.png' %}" class = "banner-img">
+			</div>
+		</div>
+	</header>
+	<main>
+		<div class = "auth-box">
+			<form method="POST" action=".">
+				{% csrf_token %}
+				<h3>Login</h3>
+				<p class="text-error"></p>
+				<div class = "form-auth">
+					<label for="email-inp">Name</label>
+					<input type="text" name = "name" id = "email-inp" class = "text-inp" placeholder="Email">
+					<label for="pass-inp">Password</label>
+					<input type="password" name = "password" id = "pass-inp" class = "text-inp" placeholder="Password">
+					<button id = "btn-submit" type="submit">Login</button>
+				</div>
+			</form>
+		</div>
+	</main>
+	<div class = "link-wrap">
+		<p>Don't have an account? <a href = "{%  url 'register-page' %}">Sign Up</a></p>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript" src="{% static 'js/django-js/login.js' %}"></script>
+</body>
+</html>
