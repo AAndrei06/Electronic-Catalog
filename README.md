@@ -37,7 +37,7 @@ This is a project on which I have worked a lot. It is an electronic catalog that
   <br>
   <p>For this project I used <b>pickle</b> as a serializer for celery tasks which is not so secure.<b>Note that</b></p>
   <br>
-  <h2>Hope you like it</h2>
+  <h2>Hope you like it (there is a video below)</h2>
 </ul>
 
 <img width="600" src="https://i.postimg.cc/Fs0QwRjg/Screenshot-from-2024-03-15-20-01-53.png">
