@@ -19,3 +19,21 @@ This is a project on which I have worked a lot. It is an electronic catalog that
   <li>Chart.js (I used this to display beautifull charts in JS)</li>
 </ul>
 <br>
+<h3>How to start this project?</h3>
+<h5>If you downloaded the zip file for this project or cloned it and you want to see it running do the following: </h5>
+<ul>
+  <li>Run: <b>pip install -r requirements.txt</b> (copy the requirements.txt file)</li>
+  <li>Run: <b>docker-compose up --build</b> to run all the images that are necessary for this project, note that you should be in the same directory as the docker-compose.yml file</li>
+  <li>Run: <b>python3 manage.py runserver 127.0.0.1:8000</b> to run the django application</li>
+  <li>Run: <b>celery --app=electronic_catalog worker --loglevel=INFO -B</b> to run Celery and Celery Beat (if you only want to run Celery remove <b>-B</b> at the end)</li>
+  <h2>Now the project should work</h2>
+  <br>
+  <h2>If there are some error try to run:</h2>
+  <br>
+  <ul>
+    <li><b>sudo kill -9 `sudo lsof -t -i:5432`</b> to kill a process that runs on the same port as the database, this is for Linux users</li>
+    <li><b>sudo service redis-server stop</b> to stop the redis server</li>
+  </ul>
+  <br>
+  <h2>Then try again</h2>
+</ul>
