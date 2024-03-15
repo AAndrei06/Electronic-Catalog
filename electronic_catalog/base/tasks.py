@@ -1,5 +1,6 @@
 from celery import shared_task
 from .models import Article, HomeWorkToDo, HomeWorkFiles, Classroom, Student, Mark, HomeworkToReceive, HomeWorkToDoFiles
+from rest_framework.authtoken.models import Token
 
 
 @shared_task(serializer="pickle")
@@ -61,3 +62,8 @@ def send_homework(files, pk, user):
 		current_std.homework_to_do -= 1
 	current_std.save()
 	homeworkToRecv.save()
+
+@shared_task
+def delete_auth():
+	for token in Token.objects.all():
+		token.delete()
