@@ -38,5 +38,6 @@ This is a project on which I have worked a lot. It is an electronic catalog that
   <p>For this project I used <b>pickle</b> as a serializer for celery tasks which is not so secure.<b>Note that</b></p>
   <br>
 Video: https://www.youtube.com/watch?v=gJAEZqOmeRw
+  <br>
 <img width="600" src="https://i.postimg.cc/Fs0QwRjg/Screenshot-from-2024-03-15-20-01-53.png">
 <img width="600" src = "https://i.postimg.cc/XY867z1r/Screenshot-from-2024-03-15-20-02-37.png">
