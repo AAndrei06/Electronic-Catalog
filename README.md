@@ -40,6 +40,6 @@ This is a project on which I have worked a lot. It is an electronic catalog that
   <h2>Hope you like it</h2>
 </ul>
 
-<img src="https://i.postimg.cc/Fs0QwRjg/Screenshot-from-2024-03-15-20-01-53.png">
+<img width="400" src="https://i.postimg.cc/Fs0QwRjg/Screenshot-from-2024-03-15-20-01-53.png">
 <br>
-<img src = "https://i.postimg.cc/XY867z1r/Screenshot-from-2024-03-15-20-02-37.png">
+<img width="400" src = "https://i.postimg.cc/XY867z1r/Screenshot-from-2024-03-15-20-02-37.png">
