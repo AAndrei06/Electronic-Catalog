@@ -39,6 +39,8 @@ This is a project on which I have worked a lot. It is an electronic catalog that
   <br>
   <h2>Hope you like it (there is a video below)</h2>
 </ul>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/gJAEZqOmeRw?si=0ODrzcjmUzwJcCQv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<video width="320" height="240" controls>
+  <source src="[movie.mp4](https://www.youtube.com/watch?v=gJAEZqOmeRw)" type="video/mp4">
+</video>
 <img width="600" src="https://i.postimg.cc/Fs0QwRjg/Screenshot-from-2024-03-15-20-01-53.png">
 <img width="600" src = "https://i.postimg.cc/XY867z1r/Screenshot-from-2024-03-15-20-02-37.png">
