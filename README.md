@@ -28,7 +28,7 @@ This is a project on which I have worked a lot. It is an electronic catalog that
   <li>Run: <b>celery --app=electronic_catalog worker --loglevel=INFO -B</b> to run Celery and Celery Beat (if you only want to run Celery remove <b>-B</b> at the end)</li>
   <h2>Now the project should work</h2>
   <br>
-  <h2>If there are some error try to run:</h2>
+  <h2>If there are some errors try to run:</h2>
   <br>
   <ul>
     <li><b>sudo kill -9 `sudo lsof -t -i:5432`</b> to kill a process that runs on the same port as the database, this is for Linux users</li>
