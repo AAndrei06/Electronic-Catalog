@@ -157,10 +157,9 @@ MEDIA_ROOT = BASE_DIR / 'static/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 ALGOLIA = {
-    'APPLICATION_ID': 'HUJCE4ZCE9',
-    'API_KEY': '912e3d1bd8cad9f7301325b9db0e7d1c',
+    'APPLICATION_ID': 'B1QZ4HNF8O',
+    'API_KEY': 'f1b196766317f2c07c226213161f69b6',
     "INDEX_PREFIX":'catalog'
 }
 

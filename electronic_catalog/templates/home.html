@@ -31,25 +31,31 @@
 							<img src="{{ user.student.image.url }}">
 						</div>
 					</a>
+				{% else %}
+					<a href="{% url 'profile-page' %}">
+						<div class = "profile-pic">
+							<img src="{% static 'user.png' %}">
+						</div>
+					</a>
 				{% endif %}
 					
 				</div>
 				{% if user.is_staff %}
 					<div class="menu-slide">
 						<div class = "links-part">
-							<div class = "set-table-on">Add Homework</div>
-							<div class = "add-student-btn"><a href="{% url 'article-page' %}">Reports|Achievemets</a></div>
-							<div id = "add-std-btn" class="add-student-btn">Add Student</div>
-							<div id = "remove-std-btn" class="add-student-btn">Remove Student</div>
-							<div id = "add-report" class="add-student-btn">Add Report</div>
-							<div id = "logout" class="add-student-btn"><a href="{% url 'logout-page' %}">Logout</a></div>
+							<div class = "set-table-on">Adaugă temă</div>
+							<div class = "add-student-btn"><a href="{% url 'article-page' %}">Rapoarte|Reușite</a></div>
+							<div id = "add-std-btn" class="add-student-btn">Adaugă Elev</div>
+							<div id = "remove-std-btn" class="add-student-btn">Elimină Elev</div>
+							<div id = "add-report" class="add-student-btn">Adaugă Raport</div>
+							<div id = "logout" class="add-student-btn"><a href="{% url 'logout-page' %}">Ieși</a></div>
 							<form method="POST" action=".">
 								{% csrf_token %}
 								<div class = "options-form">
-									<input id = "number-inp-class" type="number" name="number-class-students" min="1" max="12" placeholder="class">
-									<input id = "text-inp-month" type="text" name="number-month-students" placeholder="month">
+									<input id = "number-inp-class" type="number" name="number-class-students" min="1" max="12" placeholder="clasa">
+									<input id = "text-inp-month" type="text" name="number-month-students" placeholder="luna">
 									<div class = "submit-month-class">
-										<button type="submit">Search Class</button>
+										<button type="submit">Caută Clasa</button>
 									</div>
 								</div>
 							</form>
@@ -58,19 +64,19 @@
 				{% else %}
 					<div class="menu-slide" style="display:none">
 						<div class = "links-part">
-							<div class = "set-table-on">Add Homework</div>
-							<div class = "add-student-btn"><a href="{% url 'article-page' %}">Reports|Achievemets</a></div>
-							<div id = "add-std-btn" class="add-student-btn">Add Student</div>
-							<div id = "remove-std-btn" class="add-student-btn">Remove Student</div>
-							<div id = "add-report" class="add-student-btn">Add Report</div>
-							<div id = "logout" class="add-student-btn"><a href="{% url 'logout-page' %}">Logout</a></div>
+							<div class = "set-table-on">Adaugă temă</div>
+							<div class = "add-student-btn"><a href="{% url 'article-page' %}">Rapoarte|Reușite</a></div>
+							<div id = "add-std-btn" class="add-student-btn">Adaugă elev</div>
+							<div id = "remove-std-btn" class="add-student-btn">Elimină elev</div>
+							<div id = "add-report" class="add-student-btn">Adaugă raport</div>
+							<div id = "logout" class="add-student-btn"><a href="{% url 'logout-page' %}">Ieși</a></div>
 							<form method="POST" action=".">
 								{% csrf_token %}
 								<div class = "options-form">
 									<input id = "number-inp-class" type="number" name="number-class-students" min="1" max="12" placeholder="class">
 									<input id = "text-inp-month" type="text" name="number-month-students" placeholder="month">
 									<div class = "submit-month-class">
-										<button type="submit">Search Class</button>
+										<button type="submit">Caută clasa</button>
 									</div>
 								</div>
 							</form>
@@ -83,20 +89,20 @@
 					<div class = "close-btn">
 						<i class="fa-regular fa-circle-xmark"></i>
 					</div>
-					<h3 class = "add-hm-cls">Add Homework</h3>
+					<h3 class = "add-hm-cls">Adaugă temă</h3>
 					<form id = "add-home-form" method="POST" enctype="multipart/form-data">
 						{% csrf_token %}
 						<div class = "options-homework">
 							<div class = "home-inputs">
-								<label for = "subject">Subject:</label>
+								<label for = "subject">Subiect:</label>
 								<input type="text" id = "subject" class = "homework-inp" name = "title-of-homework">
-								<label style = "margin-top:10px" for="homework-desc">Description</label>
+								<label style = "margin-top:10px" for="homework-desc">Descriere</label>
 								<textarea id = "homework-desc" name="description-of-homework"></textarea>
-								<label style = "margin-top:10px" for="home-file-inp">Choose a file</label>
+								<label style = "margin-top:10px" for="home-file-inp">Alege fișiere</label>
 								<input multiple id = "home-file-inp" type="file" name="file-input-homework">
 							</div>
 							<select class = "home-class" name="class-option-name-home">
-								<option selected hidden>Class</option>
+								<option selected hidden>Clasa</option>
 								<option value="1">1</option>
 								<option value="2">2</option>
 								<option value="3">3</option>
@@ -121,7 +127,7 @@
 					<div class = "close-btn2">
 						<i class="fa-regular fa-circle-xmark"></i>
 					</div>
-					<h3 class = "choose-mark">Choose a mark</h3>
+					<h3 class = "choose-mark">Alege nota</h3>
 					<div class = "mark-options">
 						<div>
 							<input type="radio" name="radio" id = "mark1" value = "1">
@@ -166,12 +172,12 @@
 						<br>
 						<div>
 							<input type="radio" name="radio" id = "not" checked value = "0">
-							<label for = "not">Not present</label>
+							<label for = "not">Absent</label>
 						</div>
 						<br>
 						<div>
 							<input type="radio" name="radio" id = "del" value = "99999">
-							<label for = "not">Delete Mark</label>
+							<label for = "not">Șterge nota</label>
 						</div>
 					</div>
 					<div class="btns-div-add-std">
@@ -182,15 +188,15 @@
 					<div class = "close-btn3">
 						<i class="fa-regular fa-circle-xmark"></i>
 					</div>
-					<h3 class = "choose-mark">Add Student</h3>
+					<h3 class = "choose-mark">Adaugă Elev</h3>
 					
 					<div class = "inputs-div">
 						<div class = "inp-student-div">
-							<label for = "student-id-inp">Student ID</label>
+							<label for = "student-id-inp">ID-ul elevului</label>
 							<br>
 							<input id = "student-id-inp" type="text" name="student-id-add-to-class">
 						</div>
-						<h3 class = "h3-to-student">Class</h3>
+						<h3 class = "h3-to-student">Clasa</h3>
 						<div class = "mark-options">
 							<div>
 								<input type="radio" name="radio1" id = "mark1" value = "1">
@@ -250,11 +256,11 @@
 					<div class = "close-btn4">
 						<i class="fa-regular fa-circle-xmark"></i>
 					</div>
-					<h3 class = "choose-mark">Remove Student</h3>
+					<h3 class = "choose-mark">Elimină elev</h3>
 					
 					<div class = "inputs-div">
 						<div class = "inp-student-div">
-							<label for = "student-id-inp">Student ID</label>
+							<label for = "student-id-inp">ID-ul elevului</label>
 							<br>
 							<input id = "student-id-inp" type="text" name="student-id-remove">
 						</div>
@@ -268,14 +274,14 @@
 					<div class = "close-btn5">
 						<i class="fa-regular fa-circle-xmark"></i>
 					</div>
-					<h3 class = "h3-report">Add Report</h3>
+					<h3 class = "h3-report">Adaugă raport</h3>
 					<div class = "inputs-div-report">
 						<div>
-							<label for="title-of-post"><b>Title for report</b></label>
+							<label for="title-of-post"><b>Titlul raportului</b></label>
 							<input id = "title-of-post" class = "input-box-rep" type="text" name="">
 						</div>
 						<div>
-							<label for="text-desc-rep"><b>Description for report</b></label>
+							<label for="text-desc-rep"><b>Descrierea raportului</b></label>
 							<textarea id = "text-desc-rep" class = "text-description-report input-box-rep"></textarea>
 						</div>
 						<div>
@@ -346,7 +352,7 @@
 								<form method="POST" enctype="multipart/form-data" class="{{ homework.pk }}" id = "form-submit-homework" value = "{{ homework.pk }}">
 									{% csrf_token %}
 									{% if user.student in homework.students_that_send.all %}
-										<h3 style="margin-left:10px;color: green;">Done</h3>
+										<h3 style="margin-left:10px;color: green;">Realizat</h3>
 									{% endif %}
 									<div class = "home-title">
 										<h3>{{ homework.title }}</h3>
@@ -358,11 +364,11 @@
 									<div class = "home-content file-content">
 										<h3>Materiale</h3>
 										{% for file in homework.homework_files.all %}
-											<a href="{{ file.files.url }}">{{ file.files }}</a>
+											<a href="{{ file.files.url }}">Temă pentru acasă</a>
 										{% endfor %}
 									</div>
 									<div class = "upload-home">
-										<label for = "upload-id-hmwork">Upload your homework:</label>
+										<label for = "upload-id-hmwork">Încarcă tema:</label>
 										<input multiple type="file" id = "upload-id-hmwork" name = "{{ homework.pk }}-file-for-homework">
 									</div>
 									<div class = "button-home">
