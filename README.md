@@ -35,7 +35,7 @@ This is a project on which I have worked a lot. It is an electronic catalog that
     <li><b>sudo service redis-server stop</b> to stop the redis server</li>
   </ul>
   <br>
-  <p>For this project I used <b>pickle</b> as a serializer for celery tasks which is not so secure.<b>Note that</b></p>
+  <p>For this project I used <b>pickle</b> as a serializer for celery tasks which is not so secure.</p>
   <br>
 Video: https://www.youtube.com/watch?v=gJAEZqOmeRw
   <br>
